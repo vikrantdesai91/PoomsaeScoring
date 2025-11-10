@@ -52,7 +52,7 @@
     <!-- Scoring colors -->
     <color name="score_green">@color/success_500</color>         <!-- Accuracy -->
     <color name="score_blue">@color/highlight_500</color>        <!-- Presentation -->
-    <color name="score_yellow">@color/highlight_200</color>      <!-- Total -->
+    <color name="score_yellow">#E86339</color>      <!-- Total -->
 
     <!-- Button + text helpers -->
     <color name="btn_text">@color/neutral_light_5</color>
