@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Highlight (Blue) -->
+    <color name="highlight_500">#006FFD</color>
+    <color name="highlight_400">#2897FF</color>
+    <color name="highlight_300">#6FBAFF</color>
+    <color name="highlight_200">#B4DBFF</color>
+    <color name="highlight_100">#EAF2FF</color>
+
+    <!-- Neutral - Light -->
+    <color name="neutral_light_1">#C5C8CC</color>
+    <color name="neutral_light_2">#D4D6DD</color>
+    <color name="neutral_light_3">#E8E9F1</color>
+    <color name="neutral_light_4">#F8F9FE</color>
+    <color name="neutral_light_5">#FFFFFF</color>
+
+    <!-- Neutral - Dark scale (for text etc in light theme) -->
+    <color name="neutral_dark_1">#1F2024</color>
+    <color name="neutral_dark_2">#2F3036</color>
+    <color name="neutral_dark_3">#494A50</color>
+    <color name="neutral_dark_4">#71727A</color>
+    <color name="neutral_dark_5">#8F9098</color>
+
+    <!-- Support -->
+    <!-- Success -->
+    <color name="success_500">#298267</color>
+    <color name="success_300">#3ACA0A</color>
+    <color name="success_100">#E7F4E8</color>
+
+    <!-- Warning -->
+    <color name="warning_500">#E86339</color>
+    <color name="warning_300">#FFB37C</color>
+    <color name="warning_100">#FFF4E4</color>
+
+    <!-- Error -->
+    <color name="error_500">#ED3241</color>
+    <color name="error_300">#FF616D</color>
+    <color name="error_100">#FFE2E5</color>
+
+    <!-- ===== App role aliases (LIGHT) ===== -->
+
+    <!-- Main background for your screen -->
+    <color name="bg_dark">@color/neutral_light_4</color>
+
+    <!-- Top title bar background (you used sta_black for tvTitle) -->
+    <color name="sta_black">@color/highlight_500</color>
+
+    <!-- Primary accent for buttons like Reset All -->
+    <color name="sta_green">@color/success_500</color>
+
+    <!-- Scoring colors -->
+    <color name="score_green">@color/success_500</color>         <!-- Accuracy -->
+    <color name="score_blue">@color/highlight_500</color>        <!-- Presentation -->
+    <color name="score_yellow">@color/highlight_200</color>      <!-- Total -->
+
+    <!-- Button + text helpers -->
+    <color name="btn_text">@color/neutral_light_5</color>
+    <color name="btn_border">@color/neutral_light_1</color>
+
+    <!-- Basic aliases some views already use -->
+    <color name="white">@color/neutral_light_5</color>
+    <color name="black">@color/neutral_dark_1</color>
+
+    <!-- Buttons (LIGHT) -->
+    <color name="button_bg">@color/neutral_light_5</color>        <!-- base button fill -->
+    <color name="button_border">@color/neutral_light_2</color>    <!-- subtle border -->
+    <color name="button_ripple">@color/highlight_100</color>      <!-- light blue ripple -->
+
+
+</resources>

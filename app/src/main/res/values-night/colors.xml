@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Same base palette (for consistency if directly used) -->
+    <color name="highlight_500">#006FFD</color>
+    <color name="highlight_400">#2897FF</color>
+    <color name="highlight_300">#6FBAFF</color>
+    <color name="highlight_200">#B4DBFF</color>
+    <color name="highlight_100">#EAF2FF</color>
+
+    <color name="neutral_light_5">#FFFFFF</color>
+
+    <!-- Dark neutrals become primary surfaces -->
+    <color name="neutral_dark_1">#1F2024</color>
+    <color name="neutral_dark_2">#2F3036</color>
+    <color name="neutral_dark_3">#494A50</color>
+    <color name="neutral_dark_4">#71727A</color>
+    <color name="neutral_dark_5">#8F9098</color>
+
+    <!-- Support -->
+    <color name="success_500">#3ACA0A</color>
+    <color name="success_300">#298267</color>
+    <color name="success_100">#E7F4E8</color>
+
+    <color name="warning_500">#E86339</color>
+    <color name="warning_300">#FFB37C</color>
+    <color name="warning_100">#FFF4E4</color>
+
+    <color name="error_500">#ED3241</color>
+    <color name="error_300">#FF616D</color>
+    <color name="error_100">#FFE2E5</color>
+
+    <!-- ===== App role aliases (DARK) ===== -->
+
+    <!-- Screen background -->
+    <color name="bg_dark">@color/neutral_dark_1</color>
+
+    <!-- Top bar -->
+    <color name="sta_black">@color/neutral_dark_2</color>
+
+    <!-- Primary accent -->
+    <color name="sta_green">@color/success_500</color>
+
+    <!-- Scoring colors: tuned for dark BG -->
+    <color name="score_green">@color/success_500</color>
+    <color name="score_blue">@color/highlight_300</color>
+    <color name="score_yellow">@color/highlight_100</color>
+
+    <color name="btn_text">@color/neutral_light_5</color>
+    <color name="btn_border">@color/neutral_dark_3</color>
+
+    <color name="white">@color/neutral_light_5</color>
+    <color name="black">@color/neutral_dark_1</color>
+
+    <!-- Buttons (DARK) -->
+    <color name="button_bg">@color/neutral_dark_2</color>         <!-- dark surface -->
+    <color name="button_border">@color/neutral_dark_3</color>     <!-- slightly lighter border -->
+    <color name="button_ripple">@color/highlight_300</color>      <!-- soft blue ripple -->
+
+
+</resources>

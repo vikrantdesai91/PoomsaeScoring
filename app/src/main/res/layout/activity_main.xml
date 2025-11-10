@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_dark">
+
+    <!-- Custom Top Bar -->
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/sta_black"
+        android:fontFamily="@font/poppins_bold"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="16dp"
+        android:text="@string/poomsae_scoring"
+        android:textColor="@color/white"
+        android:layout_marginTop="40dp"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/topDivider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/button_border"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
+    <!-- Content -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginVertical="10dp"
+        android:clipToPadding="false"
+        android:paddingHorizontal="12dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnResetAll"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topDivider">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- ACCURACY SECTION -->
+
+            <TextView
+                android:id="@+id/tvAccuracyLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/accuracy_start_4_0"
+                android:textColor="@color/score_green"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvAccuracyHelp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@string/minor_0_1_major_0_3"
+                android:textColor="@color/neutral_dark_4"
+                android:textSize="13sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvAccuracyLabel" />
+
+            <!-- Accuracy row: [-0.1] [4.0] [-0.3] -->
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnMinorError"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/score_button_bg"
+                android:backgroundTint="@color/score_green"
+                android:fontFamily="@font/poppins_bold"
+                android:includeFontPadding="false"
+                android:text="@string/_0_1"
+                android:textAllCaps="false"
+                android:textColor="@color/btn_text"
+                android:textSize="32sp"
+                app:layout_constraintEnd_toStartOf="@id/tvAccuracyCurrent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvAccuracyHelp" />
+
+            <TextView
+                android:id="@+id/tvAccuracyCurrent"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/score_button_bg"
+                android:fontFamily="@font/poppins_bold"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:text="@string/_4_0"
+                android:textColor="@color/score_green"
+                android:textSize="64sp"
+                app:layout_constraintBottom_toBottomOf="@id/btnMinorError"
+                app:layout_constraintEnd_toStartOf="@id/btnMajorError"
+                app:layout_constraintStart_toEndOf="@id/btnMinorError"
+                app:layout_constraintTop_toTopOf="@id/btnMinorError" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnMajorError"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/score_button_bg"
+                android:backgroundTint="@color/score_green"
+                android:fontFamily="@font/poppins_bold"
+                android:includeFontPadding="false"
+                android:text="@string/_0_3"
+                android:textAllCaps="false"
+                android:textColor="@color/btn_text"
+                android:textSize="32sp"
+                app:layout_constraintBottom_toBottomOf="@id/btnMinorError"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tvAccuracyCurrent"
+                app:layout_constraintTop_toTopOf="@id/btnMinorError" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnMinorAdd"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/score_button_bg"
+                android:fontFamily="@font/poppins_medium"
+                android:includeFontPadding="false"
+                android:text="+0.1"
+                android:textAllCaps="false"
+                android:textColor="@color/neutral_dark_4"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toStartOf="@id/btnResetAccuracy"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btnMinorError" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnResetAccuracy"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/score_button_bg"
+                android:fontFamily="@font/poppins_medium"
+                android:includeFontPadding="false"
+                android:text="@string/reset_accuracy"
+                android:textAllCaps="false"
+                android:textColor="@color/neutral_dark_4"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toStartOf="@+id/btnMajorAdd"
+                app:layout_constraintStart_toEndOf="@+id/btnMinorAdd"
+                app:layout_constraintTop_toBottomOf="@id/btnMinorError" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnMajorAdd"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/score_button_bg"
+                android:fontFamily="@font/poppins_medium"
+                android:includeFontPadding="false"
+                android:text="+0.3"
+                android:textAllCaps="false"
+                android:textColor="@color/neutral_dark_4"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/btnResetAccuracy"
+                app:layout_constraintTop_toBottomOf="@id/btnMinorError" />
+
+            <!-- PRESENTATION SECTION -->
+
+            <TextView
+                android:id="@+id/tvPresentationLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@string/presentation_3_criteria_2_0"
+                android:textColor="@color/score_blue"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btnResetAccuracy" />
+
+            <TextView
+                android:id="@+id/tvPresentationHelp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@string/tap_value_2_0_0_5_for_each_criterion"
+                android:textColor="@color/neutral_dark_4"
+                android:textSize="13sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvPresentationLabel" />
+
+            <!-- C1 -->
+            <TextView
+                android:id="@+id/tvC1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/_1_rhythm_amp_coordination"
+                android:textColor="@color/neutral_dark_4"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvPresentationHelp" />
+
+            <HorizontalScrollView
+                android:id="@+id/hsC1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:scrollbars="none"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvC1">
+
+                <LinearLayout
+                    android:id="@+id/layoutC1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" />
+            </HorizontalScrollView>
+
+            <!-- C2 -->
+            <TextView
+                android:id="@+id/tvC2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/_2_technical_execution"
+                android:textColor="@color/neutral_dark_4"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/hsC1" />
+
+            <HorizontalScrollView
+                android:id="@+id/hsC2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:scrollbars="none"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvC2">
+
+                <LinearLayout
+                    android:id="@+id/layoutC2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" />
+            </HorizontalScrollView>
+
+            <!-- C3 -->
+            <TextView
+                android:id="@+id/tvC3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/_3_expression_of_energy"
+                android:textColor="@color/neutral_dark_4"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/hsC2" />
+
+            <HorizontalScrollView
+                android:id="@+id/hsC3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:scrollbars="none"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvC3">
+
+                <LinearLayout
+                    android:id="@+id/layoutC3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" />
+            </HorizontalScrollView>
+
+            <!-- Presentation total (small) -->
+            <TextView
+                android:id="@+id/tvPresentationCurrent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@string/presentation_6_0"
+                android:textColor="@color/score_blue"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/hsC3" />
+
+            <!-- BIG SCORES ROW -->
+
+            <TextView
+                android:id="@+id/tvAccuracyBig"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/poppins_bold"
+                android:gravity="center"
+                android:text="@string/_4_0"
+                android:textColor="@color/score_green"
+                android:textSize="50sp"
+                app:layout_constraintEnd_toStartOf="@id/tvPresentationBig"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvPresentationCurrent" />
+
+            <TextView
+                android:id="@+id/tvPresentationBig"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/poppins_bold"
+                android:gravity="center"
+                android:text="@string/_6_0"
+                android:textColor="@color/score_blue"
+                android:textSize="50sp"
+                app:layout_constraintEnd_toStartOf="@id/tvTotalBig"
+                app:layout_constraintStart_toEndOf="@id/tvAccuracyBig"
+                app:layout_constraintTop_toBottomOf="@id/tvPresentationCurrent" />
+
+            <TextView
+                android:id="@+id/tvTotalBig"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/poppins_bold"
+                android:gravity="center"
+                android:text="@string/_10_000"
+                android:textColor="@color/score_yellow"
+                android:textSize="50sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tvPresentationBig"
+                app:layout_constraintTop_toBottomOf="@id/tvPresentationCurrent" />
+
+            <!-- Labels under big scores -->
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center"
+                android:text="@string/accuracy"
+                android:textColor="@color/score_green"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@id/tvAccuracyBig"
+                app:layout_constraintStart_toStartOf="@id/tvAccuracyBig"
+                app:layout_constraintTop_toBottomOf="@id/tvAccuracyBig" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center"
+                android:text="@string/presentation"
+                android:textColor="@color/score_blue"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@id/tvPresentationBig"
+                app:layout_constraintStart_toStartOf="@id/tvPresentationBig"
+                app:layout_constraintTop_toBottomOf="@id/tvPresentationBig" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center"
+                android:text="@string/total"
+                android:textColor="@color/score_yellow"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@id/tvTotalBig"
+                app:layout_constraintStart_toStartOf="@id/tvTotalBig"
+                app:layout_constraintTop_toBottomOf="@id/tvTotalBig" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- RESET ALL BUTTON (BOTTOM) -->
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnResetAll"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/score_button_bg"
+        android:backgroundTint="@color/sta_green"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/new_competitor_reset_all"
+        android:textAllCaps="false"
+        android:textColor="@color/btn_text"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

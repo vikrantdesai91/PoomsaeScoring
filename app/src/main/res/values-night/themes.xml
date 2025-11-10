@@ -1,0 +1,24 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="Base.Theme.PoomsaeScoring" parent="Theme.Material3.DayNight.NoActionBar" />
+
+    <style name="Theme.PoomsaeScoring" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Brand (slightly softer in dark) -->
+        <item name="colorPrimary">@color/highlight_300</item>
+        <item name="colorPrimaryVariant">@color/highlight_500</item>
+        <item name="colorOnPrimary">@color/neutral_dark_1</item>
+
+        <!-- Surfaces -->
+        <item name="android:windowBackground">@color/bg_dark</item>
+        <item name="colorSurface">@color/neutral_dark_2</item>
+        <item name="colorOnSurface">@color/neutral_light_5</item>
+
+        <item name="android:statusBarColor">@color/neutral_dark_1</item>
+        <item name="android:navigationBarColor">@color/neutral_dark_1</item>
+
+        <item name="colorSecondary">@color/success_500</item>
+        <item name="colorOnSecondary">@color/neutral_dark_1</item>
+
+        <item name="android:textColorPrimary">@color/neutral_light_5</item>
+    </style>
+</resources>

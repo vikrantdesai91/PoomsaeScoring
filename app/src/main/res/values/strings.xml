@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Poomsae Scoring</string>
+    <string name="poomsae_scoring">Poomsae Scoring</string>
+    <string name="accuracy_start_4_0">Accuracy (start 4.0)</string>
+    <string name="minor_0_1_major_0_3">Minor -0.1 Major -0.3</string>
+    <string name="_0_1">-0.1</string>
+    <string name="_4_0">4.0</string>
+    <string name="_0_3">-0.3</string>
+    <string name="reset_accuracy">Reset Accuracy</string>
+    <string name="presentation_3_criteria_2_0">Presentation (3 criteria × 2.0)</string>
+    <string name="tap_value_2_0_0_5_for_each_criterion">Tap value (2.0 – 0.5) for each criterion</string>
+    <string name="_1_rhythm_amp_coordination"><![CDATA[1) Rhythm & Coordination]]></string>
+    <string name="_2_technical_execution">2) Technical Execution</string>
+    <string name="_3_expression_of_energy">3) Expression of Energy</string>
+    <string name="presentation_6_0">Presentation: 6.0</string>
+    <string name="_6_0">6.0</string>
+    <string name="_10_000">10.000</string>
+    <string name="accuracy">Accuracy</string>
+    <string name="presentation">Presentation</string>
+    <string name="total">Total</string>
+    <string name="new_competitor_reset_all">New Competitor (Reset All)</string>
+</resources>
