@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_dark">
+    android:background="@color/bg_dark"
+    android:fitsSystemWindows="true">
 
     <!-- Custom Top Bar -->
     <TextView
@@ -16,7 +17,6 @@
         android:paddingHorizontal="16dp"
         android:text="@string/poomsae_scoring"
         android:textColor="@color/white"
-        android:layout_marginTop="40dp"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

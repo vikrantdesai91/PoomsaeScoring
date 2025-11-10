@@ -165,7 +165,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 text = formatScore(v)
                 textSize = 16f
-                setTextColor(resources.getColor(R.color.btn_text, theme))
+                setTextColor(resources.getColor(R.color.neutral_dark_4, theme))
                 background = getDrawable(R.drawable.score_button_bg)
 
                 setOnClickListener {
