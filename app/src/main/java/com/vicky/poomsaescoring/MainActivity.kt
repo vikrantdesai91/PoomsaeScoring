@@ -1,6 +1,7 @@
 package com.vicky.poomsaescoring
 
 import android.content.pm.ActivityInfo
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.Gravity
 import android.view.ViewGroup
@@ -188,7 +189,12 @@ class MainActivity : AppCompatActivity() {
         categoryButtons[categoryIndex].forEach { btn ->
             val isSel = btn == selected
             btn.isSelected = isSel
-            btn.alpha = if (isSel) 1.0f else 0.5f
+            btn.backgroundTintList = if (isSel) {
+                ColorStateList.valueOf(resources.getColor(R.color.score_blue, theme))
+            } else {
+                ColorStateList.valueOf(resources.getColor(R.color.neutral_light_2, theme))
+            }
+            btn.setTextColor(if (isSel) resources.getColor(R.color.white_black, theme) else resources.getColor(R.color.neutral_dark_4, theme))
         }
     }
 

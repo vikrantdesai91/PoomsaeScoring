@@ -61,6 +61,7 @@
     <!-- Basic aliases some views already use -->
     <color name="white">@color/neutral_light_5</color>
     <color name="black">@color/neutral_dark_1</color>
+    <color name="white_black">#FFFFFF</color>
 
     <!-- Buttons (LIGHT) -->
     <color name="button_bg">@color/neutral_light_5</color>        <!-- base button fill -->
