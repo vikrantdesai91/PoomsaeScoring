@@ -7,11 +7,22 @@ import android.view.Gravity
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.vicky.poomsaescoring.databinding.ActivityMainBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import org.json.JSONObject
+import java.io.BufferedWriter
+import java.io.OutputStreamWriter
+import java.net.InetSocketAddress
+import java.net.Socket
 import kotlin.math.roundToInt
 
 class MainActivity : AppCompatActivity() {
@@ -30,7 +41,7 @@ class MainActivity : AppCompatActivity() {
     private var c2Score = 2.0
     private var c3Score = 2.0
 
-    // For highlighting selected buttons in each row
+    // Dynamic buttons for presentation rows
     private val categoryButtons: Array<MutableList<Button>> =
         Array(3) { mutableListOf<Button>() }
 
@@ -38,10 +49,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        this.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
 
         setupAccuracyButtons()
         setupPresentationButtons()
+        setupSubmitButton()
         updateAllScores()
     }
 
@@ -74,18 +87,16 @@ class MainActivity : AppCompatActivity() {
             resetAccuracy()
         }
 
-        // Reset all (accuracy + presentation) handled in layout button
+        // Reset all (accuracy + presentation)
         btnResetAll.setOnClickListener {
             resetAll()
         }
     }
 
     private fun applyAccuracyDeduction(amount: Double, isMinor: Boolean) {
-        // Apply deduction
         accuracyScore -= amount
         if (accuracyScore < minAccuracy) accuracyScore = minAccuracy
 
-        // Track counts
         if (isMinor) {
             minorErrors++
         } else {
@@ -96,17 +107,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun applyAccuracyAddition(amount: Double, isMinor: Boolean) {
-        // Treat as undo of previous error of that type.
-        if (isMinor) {
-            if (minorErrors > 0) {
-                minorErrors--
-                accuracyScore += amount
-            }
-        } else {
-            if (majorErrors > 0) {
-                majorErrors--
-                accuracyScore += amount
-            }
+        if (isMinor && minorErrors > 0) {
+            minorErrors--
+            accuracyScore += amount
+        } else if (!isMinor && majorErrors > 0) {
+            majorErrors--
+            accuracyScore += amount
         }
 
         if (accuracyScore > maxAccuracy) accuracyScore = maxAccuracy
@@ -166,8 +172,8 @@ class MainActivity : AppCompatActivity() {
                 }
                 text = formatScore(v)
                 textSize = 16f
-                setTextColor(resources.getColor(R.color.neutral_dark_4, theme))
-                background = getDrawable(R.drawable.score_button_bg)
+                setTextColor(ContextCompat.getColor(this@MainActivity, R.color.neutral_dark_4))
+                background = ContextCompat.getDrawable(this@MainActivity, R.drawable.score_button_bg)
 
                 setOnClickListener {
                     onValueSelected(v)
@@ -185,16 +191,86 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Visually mark one button as selected for a category using your color system.
+     */
     private fun markSelected(categoryIndex: Int, selected: Button) {
+        val selectedBg = ContextCompat.getColor(this, R.color.score_blue)
+        val unselectedBg = ContextCompat.getColor(this, R.color.neutral_light_2)
+        val selectedText = ContextCompat.getColor(this, R.color.white)
+        val unselectedText = ContextCompat.getColor(this, R.color.neutral_dark_4)
+
         categoryButtons[categoryIndex].forEach { btn ->
             val isSel = btn == selected
             btn.isSelected = isSel
-            btn.backgroundTintList = if (isSel) {
-                ColorStateList.valueOf(resources.getColor(R.color.score_blue, theme))
-            } else {
-                ColorStateList.valueOf(resources.getColor(R.color.neutral_light_2, theme))
+            btn.backgroundTintList = ColorStateList.valueOf(if (isSel) selectedBg else unselectedBg)
+            btn.setTextColor(if (isSel) selectedText else unselectedText)
+        }
+    }
+
+    // ---------------- Submit to Host (Admin App) ----------------
+
+    private fun setupSubmitButton() {
+        binding.btnSubmitScore.setOnClickListener {
+            submitScoreToHost()
+        }
+    }
+
+    private fun submitScoreToHost() {
+        val refereeName = binding.etRefereeName.text?.toString()?.trim().orEmpty()
+        val hostIp = binding.etHostIp.text?.toString()?.trim().orEmpty()
+        val port = 5555 // same as host app
+
+        // Simple validation with TextInputLayout error support
+        var hasError = false
+
+        if (refereeName.isEmpty()) {
+            binding.tilName.error = "Referee name required"
+            hasError = true
+        } else {
+            binding.tilName.error = null
+        }
+
+        if (hostIp.isEmpty()) {
+            binding.tilIp.error = "Host IP required"
+            hasError = true
+        } else {
+            binding.tilIp.error = null
+        }
+
+        if (hasError) return
+
+        val presentationTotal = c1Score + c2Score + c3Score
+        val total = accuracyScore + presentationTotal
+
+        val accuracyRounded = roundToThreeDecimals(accuracyScore)
+        val presRounded = roundToThreeDecimals(presentationTotal)
+        val totalRounded = roundToThreeDecimals(total)
+
+        val payload = JSONObject().apply {
+            put("refereeName", refereeName)
+            put("accuracy", accuracyRounded)
+            put("presentation", presRounded)
+            put("total", totalRounded)
+        }.toString()
+
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                Socket().use { socket ->
+                    socket.connect(InetSocketAddress(hostIp, port), 3000)
+                    val writer = BufferedWriter(OutputStreamWriter(socket.getOutputStream()))
+                    writer.write(payload)
+                    writer.newLine()
+                    writer.flush()
+                }
+                withContext(Dispatchers.Main) {
+                    toast("Score submitted")
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    toast("Submit failed: ${e.localizedMessage ?: "Connection error"}")
+                }
             }
-            btn.setTextColor(if (isSel) resources.getColor(R.color.white_black, theme) else resources.getColor(R.color.neutral_dark_4, theme))
         }
     }
 
@@ -204,11 +280,9 @@ class MainActivity : AppCompatActivity() {
         val presentationTotal = c1Score + c2Score + c3Score
         val total = accuracyScore + presentationTotal
 
-        // Small accuracy line with counts
         binding.tvAccuracyHelp.text =
             "Minor -0.1 ($minorErrors)    Major -0.3 ($majorErrors)"
 
-        // Big numbers & labels
         binding.tvAccuracyCurrent.text = formatScore(accuracyScore)
         binding.tvPresentationCurrent.text =
             "Presentation: ${formatScore(presentationTotal)}"
@@ -227,12 +301,11 @@ class MainActivity : AppCompatActivity() {
         c2Score = 2.0
         c3Score = 2.0
 
-        // Reset presentation button highlights: select first (2.0) in each row
+        // Re-select default (2.0) for each category row
         for (cat in 0..2) {
-            categoryButtons[cat].forEachIndexed { index, button ->
-                val isSel = index == 0
-                button.isSelected = isSel
-                button.alpha = if (isSel) 1.0f else 0.5f
+            val buttons = categoryButtons[cat]
+            if (buttons.isNotEmpty()) {
+                markSelected(cat, buttons.first())
             }
         }
 
@@ -246,9 +319,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun formatScoreThreeDecimals(value: Double): String {
-        // Total always 3 decimals (e.g. 10.000)
-        val rounded = (value * 1000.0).roundToInt() / 1000.0
+        val rounded = roundToThreeDecimals(value)
         return String.format("%.3f", rounded)
+    }
+
+    private fun roundToThreeDecimals(value: Double): Double {
+        return (value * 1000.0).roundToInt() / 1000.0
     }
 
     private fun normalizeOneDecimal(value: Double): Double {
@@ -258,5 +334,9 @@ class MainActivity : AppCompatActivity() {
     private fun dpToPx(dp: Int): Int {
         val density = resources.displayMetrics.density
         return (dp * density).roundToInt()
+    }
+
+    private fun toast(msg: String) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
     }
 }
