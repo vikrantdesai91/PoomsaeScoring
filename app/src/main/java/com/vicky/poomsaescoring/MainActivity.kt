@@ -4,6 +4,7 @@ import android.content.pm.ActivityInfo
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.Gravity
+import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
@@ -19,7 +20,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
+import java.io.BufferedReader
 import java.io.BufferedWriter
+import java.io.InputStreamReader
 import java.io.OutputStreamWriter
 import java.net.InetSocketAddress
 import java.net.Socket
@@ -219,7 +222,7 @@ class MainActivity : AppCompatActivity() {
     private fun submitScoreToHost() {
         val refereeName = binding.etRefereeName.text?.toString()?.trim().orEmpty()
         val hostIp = binding.etHostIp.text?.toString()?.trim().orEmpty()
-        val port = 5555 // same as host app
+        val port = 5555
 
         // Simple validation with TextInputLayout error support
         var hasError = false
@@ -243,32 +246,46 @@ class MainActivity : AppCompatActivity() {
         val presentationTotal = c1Score + c2Score + c3Score
         val total = accuracyScore + presentationTotal
 
-        val accuracyRounded = roundToThreeDecimals(accuracyScore)
-        val presRounded = roundToThreeDecimals(presentationTotal)
-        val totalRounded = roundToThreeDecimals(total)
-
         val payload = JSONObject().apply {
             put("refereeName", refereeName)
-            put("accuracy", accuracyRounded)
-            put("presentation", presRounded)
-            put("total", totalRounded)
+            put("accuracy", roundToThreeDecimals(accuracyScore))
+            put("presentation", roundToThreeDecimals(presentationTotal))
+            put("total", roundToThreeDecimals(total))
         }.toString()
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 Socket().use { socket ->
+                    // connect
                     socket.connect(InetSocketAddress(hostIp, port), 3000)
+
+                    // send
                     val writer = BufferedWriter(OutputStreamWriter(socket.getOutputStream()))
                     writer.write(payload)
                     writer.newLine()
                     writer.flush()
-                }
-                withContext(Dispatchers.Main) {
-                    toast("Score submitted")
+
+                    // wait for ACK
+                    socket.soTimeout = 3000
+                    val reader = BufferedReader(InputStreamReader(socket.getInputStream()))
+                    val response = reader.readLine()
+
+                    if (response == "OK") {
+                        withContext(Dispatchers.Main) {
+                            setConnectionStatus(connected = true, hostIp = hostIp)
+                            toast("Score submitted")
+                        }
+                    } else {
+                        withContext(Dispatchers.Main) {
+                            setConnectionStatus(connected = false, hostIp = hostIp)
+                            toast("Submit failed: no ACK from host")
+                        }
+                    }
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
-                    toast("Submit failed: ${e.localizedMessage ?: "Connection error"}")
+                    setConnectionStatus(connected = false, hostIp = hostIp)
+                    toast("Submit failed: ${e.localizedMessage ?: "connection error"}")
                 }
             }
         }
@@ -280,12 +297,10 @@ class MainActivity : AppCompatActivity() {
         val presentationTotal = c1Score + c2Score + c3Score
         val total = accuracyScore + presentationTotal
 
-        binding.tvAccuracyHelp.text =
-            "Minor -0.1 ($minorErrors)    Major -0.3 ($majorErrors)"
+        binding.tvAccuracyHelp.text = "Minor -0.1 ($minorErrors)    Major -0.3 ($majorErrors)"
 
         binding.tvAccuracyCurrent.text = formatScore(accuracyScore)
-        binding.tvPresentationCurrent.text =
-            "Presentation: ${formatScore(presentationTotal)}"
+        binding.tvPresentationCurrent.text = "Presentation: ${formatScore(presentationTotal)}"
 
         binding.tvAccuracyBig.text = formatScore(accuracyScore)
         binding.tvPresentationBig.text = formatScore(presentationTotal)
@@ -329,6 +344,21 @@ class MainActivity : AppCompatActivity() {
 
     private fun normalizeOneDecimal(value: Double): Double {
         return (value * 10.0).roundToInt() / 10.0
+    }
+
+    private fun setConnectionStatus(connected: Boolean, hostIp: String) {
+        // If you didn't add tvConnectionStatus, you can skip this safely
+        val tv = binding.tvConnectionStatus ?: return
+
+        if (connected) {
+            tv.text = "Connected to $hostIp"
+            tv.setTextColor(ContextCompat.getColor(this, R.color.score_green))
+            binding.clRefereeDetails.visibility = View.GONE
+        } else {
+            tv.text = "Not connected"
+            tv.setTextColor(ContextCompat.getColor(this, R.color.error_500))
+            binding.clRefereeDetails.visibility = View.VISIBLE
+        }
     }
 
     private fun dpToPx(dp: Int): Int {
