@@ -18,5 +18,21 @@
         <action
             android:id="@+id/action_scoringListFragment_to_cutoffFragment"
             app:destination="@id/cutoffFragment" />
+        <action
+            android:id="@+id/action_scoringListFragment_to_singleEliminationFragment"
+            app:destination="@id/singleEliminationFragment" />
+        <action
+            android:id="@+id/action_scoringListFragment_to_freeStyleFragment"
+            app:destination="@id/freeStyleFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/singleEliminationFragment"
+        android:name="com.vicky.poomsaescoring.SingleEliminationFragment"
+        android:label="fragment_single_elimination"
+        tools:layout="@layout/fragment_single_elimination" />
+    <fragment
+        android:id="@+id/freeStyleFragment"
+        android:name="com.vicky.poomsaescoring.FreeStyleFragment"
+        android:label="fragment_free_style"
+        tools:layout="@layout/fragment_free_style" />
 </navigation>

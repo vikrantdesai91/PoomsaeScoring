@@ -32,6 +32,14 @@ class ScoringListFragment : Fragment() {
             cdCutoffSystem.setOnClickListener {
                 findNavController().navigate(R.id.cutoffFragment)
             }
+
+            cdSingleEliminationSystem.setOnClickListener {
+                findNavController().navigate(R.id.singleEliminationFragment)
+            }
+
+            cdFreeStyleSystem.setOnClickListener {
+                findNavController().navigate(R.id.freeStyleFragment)
+            }
         }
     }
 
