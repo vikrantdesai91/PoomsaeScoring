@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/scoringListFragment">
+
+    <fragment
+        android:id="@+id/cutoffFragment"
+        android:name="com.vicky.poomsaescoring.CutoffFragment"
+        android:label="fragment_cutoff"
+        tools:layout="@layout/fragment_cutoff" />
+    <fragment
+        android:id="@+id/scoringListFragment"
+        android:name="com.vicky.poomsaescoring.ScoringListFragment"
+        android:label="fragment_scoring_list"
+        tools:layout="@layout/fragment_scoring_list">
+        <action
+            android:id="@+id/action_scoringListFragment_to_cutoffFragment"
+            app:destination="@id/cutoffFragment" />
+    </fragment>
+</navigation>

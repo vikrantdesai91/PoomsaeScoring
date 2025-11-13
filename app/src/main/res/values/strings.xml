@@ -19,4 +19,6 @@
     <string name="presentation">Presentation</string>
     <string name="total">Total</string>
     <string name="new_competitor_reset_all">New Competitor (Reset All)</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
