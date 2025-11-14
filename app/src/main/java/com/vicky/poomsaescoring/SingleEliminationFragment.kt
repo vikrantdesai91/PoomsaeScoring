@@ -141,13 +141,12 @@ class SingleEliminationFragment : Fragment() {
         // Create the payload to send both players' scores to the host
         val payload = JSONObject().apply {
             put("refereeName", refereeName)
-            put("player1_accuracy", roundToThreeDecimals(player1Accuracy))
-            put("player1_presentation", roundToThreeDecimals(p1PresentationTotal))
-            put("player1_total", roundToThreeDecimals(p1Total))
-
-            put("player2_accuracy", roundToThreeDecimals(player2Accuracy))
-            put("player2_presentation", roundToThreeDecimals(p2PresentationTotal))
-            put("player2_total", roundToThreeDecimals(p2Total))
+            put("player1Accuracy", roundToThreeDecimals(player1Accuracy))
+            put("player2Accuracy", roundToThreeDecimals(player2Accuracy))
+            put("player1Presentation", roundToThreeDecimals(p1Total))
+            put("player2Presentation", roundToThreeDecimals(p2Total))
+            put("player1Total", roundToThreeDecimals(player1Accuracy + p1Total))
+            put("player2Total", roundToThreeDecimals(player2Accuracy + p2Total))
         }.toString()
 
         CoroutineScope(Dispatchers.IO).launch {

@@ -259,9 +259,12 @@ class CutoffFragment : Fragment() {
 
         val payload = JSONObject().apply {
             put("refereeName", refereeName)
-            put("accuracy", roundToThreeDecimals(accuracyScore))
-            put("presentation", roundToThreeDecimals(presentationTotal))
-            put("total", roundToThreeDecimals(total))
+            put("player1Accuracy", roundToThreeDecimals(accuracyScore))
+            put("player2Accuracy", "")
+            put("player1Presentation", roundToThreeDecimals(presentationTotal))
+            put("player2Presentation", "")
+            put("player1Total", roundToThreeDecimals(total))
+            put("player2Total", "")
         }.toString()
 
         CoroutineScope(Dispatchers.IO).launch {
