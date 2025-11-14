@@ -170,6 +170,16 @@ class SingleEliminationFragment : Fragment() {
                         withContext(Dispatchers.Main) {
                             setConnectionStatus(connected = true, hostIp = hostIp)
                             toast("Scores submitted successfully!")
+                            resetScores()
+                            binding.clPlayer2Presentation.visibility = View.GONE
+                            binding.clPlayer1Presentation.visibility = View.GONE
+                            binding.btnSubmitScore.visibility = View.GONE
+                            binding.clPlayer2Accuracy.visibility = View.VISIBLE
+                            binding.clPlayer1Accuracy.visibility = View.VISIBLE
+                            binding.tvAccuracyLabel.text = getString(R.string.accuracy_start_4_0)
+                            binding.tvConnectHost.visibility = View.VISIBLE
+                            binding.tvAccuracyHelp.text = getString(R.string.minor_0_1_major_0_3)
+                            binding.btnNext.text = "Next"
                         }
                     } else {
                         withContext(Dispatchers.Main) {
@@ -186,6 +196,67 @@ class SingleEliminationFragment : Fragment() {
             }
         }
     }
+
+    private fun resetScores() {
+        // Reset Player 1 scores
+        p1C1Score = 2.0
+        p1C2Score = 2.0
+        p1C3Score = 2.0
+        player1Accuracy = 4.0
+        player1MinorErrors = 0
+        player1MajorErrors = 0
+
+        // Reset Player 2 scores
+        p2C1Score = 2.0
+        p2C2Score = 2.0
+        p2C3Score = 2.0
+        player2Accuracy = 4.0
+        player2MinorErrors = 0
+        player2MajorErrors = 0
+
+        // Update UI
+        updateAllScores()
+    }
+
+    private fun updateAllScores() {
+        // Calculate the total score for Player 1 and Player 2
+        val p1Total = p1C1Score + p1C2Score + p1C3Score
+        val p2Total = p2C1Score + p2C2Score + p2C3Score
+
+        // Update UI with Player 1 and Player 2 total scores
+        binding.apply {
+            // Player 1 Accuracy and Presentation
+            tvPlayer1Accuracy.text = formatScore(player1Accuracy)
+            tvPlayer1AccuracyBig.text = formatScore(player1Accuracy)
+
+            // Player 1 Presentation (C1 + C2 + C3)
+//            tvPlayer1Presentation.text = formatScore(p1Total)
+            tvPlayer1PresentationBig.text = formatScore(p1Total)
+
+            // Player 1 Total (Accuracy + Presentation)
+            val p1TotalScore = roundToThreeDecimals(player1Accuracy + p1Total)
+            tvPlayer1TotalBig.text = p1TotalScore.toString()
+
+            // Player 2 Accuracy and Presentation
+            tvPlayer2Accuracy.text = formatScore(player2Accuracy)
+            tvPlayer2AccuracyBig.text = formatScore(player2Accuracy)
+
+            // Player 2 Presentation (C1 + C2 + C3)
+//            tvPlayer2Presentation.text = formatScore(p2Total)
+            tvPlayer2PresentationBig.text = formatScore(p2Total)
+
+            // Player 2 Total (Accuracy + Presentation)
+            val p2TotalScore = roundToThreeDecimals(player2Accuracy + p2Total)
+            tvPlayer2TotalBig.text = p2TotalScore.toString()
+
+        }
+
+        // Call this function to reset the category buttons after resetting the scores
+        setupPresentationButtons()
+    }
+
+
+
 
 
     private fun setConnectionStatus(connected: Boolean, hostIp: String) {
@@ -299,9 +370,10 @@ class SingleEliminationFragment : Fragment() {
         values: List<Double>,
         onValueSelected: (Double) -> Unit
     ) {
-        container.removeAllViews()
-        buttonsStore.clear()
+        container.removeAllViews()  // Clear the container before adding buttons
+        buttonsStore.clear()         // Clear the store for this category
 
+        // Create a button for each value in the category
         for (v in values) {
             val btn = Button(requireContext()).apply {
                 layoutParams = LinearLayout.LayoutParams(
@@ -312,6 +384,7 @@ class SingleEliminationFragment : Fragment() {
                     gravity = Gravity.CENTER_VERTICAL
                 }
 
+                // Set the button text (formatted to one decimal point)
                 text = formatScoreOneDecimal(v)
                 textSize = 16f
                 setTextColor(resources.getColor(R.color.neutral_dark_4, requireContext().theme))
@@ -319,40 +392,45 @@ class SingleEliminationFragment : Fragment() {
 
                 setOnClickListener {
                     onValueSelected(v)
-                    markSelected(buttonsStore, this)
+                    markSelected(buttonsStore, this)  // Mark the button as selected
                 }
             }
 
+            // Add the button to the container and store it for future reference
             container.addView(btn)
             buttonsStore.add(btn)
         }
 
-        // Default select 2.0 (first button)
+        // After all buttons are created, select the first one by default
         if (buttonsStore.isNotEmpty()) {
-            markSelected(buttonsStore, buttonsStore.first())
+            markSelected(buttonsStore, buttonsStore.first()) // Select the first button by default
         }
     }
+
 
     private fun markSelected(buttonsStore: MutableList<Button>, selected: Button) {
         buttonsStore.forEach { btn ->
-            val isSel = btn == selected
-            btn.isSelected = isSel
+            val isSelected = btn == selected
+            btn.isSelected = isSelected
 
+            // Change the background color of the selected button
             btn.backgroundTintList = ColorStateList.valueOf(
                 resources.getColor(
-                    if (isSel) R.color.score_blue else R.color.neutral_light_2,
+                    if (isSelected) R.color.score_blue else R.color.neutral_light_2,  // Highlight selected
                     requireContext().theme
                 )
             )
 
+            // Change the text color of the selected button
             btn.setTextColor(
                 resources.getColor(
-                    if (isSel) R.color.white_black else R.color.neutral_dark_4,
+                    if (isSelected) R.color.white_black else R.color.neutral_dark_4,  // Change text color for selected
                     requireContext().theme
                 )
             )
         }
     }
+
 
     private fun normalizeOneDecimal(value: Double): Double {
         return (value * 10.0).roundToInt() / 10.0
