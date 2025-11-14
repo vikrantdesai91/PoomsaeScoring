@@ -268,11 +268,11 @@ class SingleEliminationFragment : Fragment() {
             tvPlayer1PresentationBig.text = formatScoreOneDecimal(p1Total)
             tvPlayer2PresentationBig.text = formatScoreOneDecimal(p2Total)
 
-            val p1TotalScore = formatScore(player1Accuracy).toDouble() + p1Total
-            val p2TotalScore = formatScore(player2Accuracy).toDouble() + p2Total
+            val p1TotalScore = roundToThreeDecimals(player1Accuracy + p1Total)
+            val p2TotalScore = roundToThreeDecimals(player2Accuracy + p2Total)
 
-            tvPlayer1TotalBig.text = roundToThreeDecimals(p1TotalScore).toString()
-            tvPlayer2TotalBig.text = roundToThreeDecimals(p2TotalScore).toString()
+            tvPlayer1TotalBig.text = p1TotalScore.toString()
+            tvPlayer2TotalBig.text = p2TotalScore.toString()
         }
     }
 
