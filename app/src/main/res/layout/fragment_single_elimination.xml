@@ -8,527 +8,750 @@
     android:paddingHorizontal="10dp"
     tools:context=".SingleEliminationFragment">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideLine"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.50" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/clRefereeDetails"
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:paddingHorizontal="12dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnNext"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilName"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="14dp"
-            android:hint="Referee Name"
-            app:boxCornerRadiusBottomEnd="5dp"
-            app:boxCornerRadiusBottomStart="5dp"
-            app:boxCornerRadiusTopEnd="5dp"
-            app:boxCornerRadiusTopStart="5dp"
-            app:errorEnabled="true"
-            app:layout_constraintEnd_toStartOf="@+id/tilIp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etRefereeName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_medium"
-                android:imeOptions="actionDone"
-                android:inputType="textPersonName"
-                android:textSize="14sp" />
-        </com.google.android.material.textfield.TextInputLayout>
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideLine"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.50" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilIp"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clRefereeDetails"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="14dp"
-            android:hint="Host IP"
-            app:boxCornerRadiusBottomEnd="5dp"
-            app:boxCornerRadiusBottomStart="5dp"
-            app:boxCornerRadiusTopEnd="5dp"
-            app:boxCornerRadiusTopStart="5dp"
-            app:errorEnabled="true"
-            app:layout_constraintEnd_toStartOf="@+id/tvConnectionStatus"
-            app:layout_constraintStart_toEndOf="@+id/tilName"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etHostIp"
-                android:layout_width="match_parent"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilName"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_medium"
-                android:imeOptions="actionDone"
-                android:inputType="textPersonName"
-                android:textSize="14sp" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginEnd="14dp"
+                android:hint="Referee Name"
+                app:boxCornerRadiusBottomEnd="5dp"
+                app:boxCornerRadiusBottomStart="5dp"
+                app:boxCornerRadiusTopEnd="5dp"
+                app:boxCornerRadiusTopStart="5dp"
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toStartOf="@+id/tilIp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etRefereeName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_medium"
+                    android:imeOptions="actionDone"
+                    android:inputType="textPersonName"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilIp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="14dp"
+                android:hint="Host IP"
+                app:boxCornerRadiusBottomEnd="5dp"
+                app:boxCornerRadiusBottomStart="5dp"
+                app:boxCornerRadiusTopEnd="5dp"
+                app:boxCornerRadiusTopStart="5dp"
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toStartOf="@+id/tvConnectionStatus"
+                app:layout_constraintStart_toEndOf="@+id/tilName"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etHostIp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_medium"
+                    android:imeOptions="actionDone"
+                    android:inputType="textPersonName"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/tvConnectionStatus"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/score_button_bg"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center"
+                android:text="Not connected"
+                android:textColor="@color/error_500"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tilIp"
+                app:layout_constraintTop_toTopOf="@+id/tilIp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
-            android:id="@+id/tvConnectionStatus"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="4dp"
-            android:background="@drawable/score_button_bg"
-            android:fontFamily="@font/poppins_regular"
-            android:gravity="center"
-            android:text="Not connected"
-            android:textColor="@color/error_500"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tilIp"
-            app:layout_constraintTop_toTopOf="@+id/tilIp" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <TextView
-        android:id="@+id/tvAccuracyLabel"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins_medium"
-        android:text="@string/accuracy_start_4_0"
-        android:textColor="@color/score_green"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toStartOf="@+id/tvConnectHost"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/clRefereeDetails" />
-
-    <TextView
-        android:id="@+id/tvConnectHost"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins_medium"
-        android:paddingHorizontal="20dp"
-        android:text="Connect Host Again"
-        android:textColor="@color/score_green"
-        android:textSize="16sp"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/clRefereeDetails" />
-
-    <TextView
-        android:id="@+id/tvAccuracyHelp"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:fontFamily="@font/poppins_regular"
-        android:text="@string/minor_0_1_major_0_3"
-        android:textColor="@color/neutral_dark_4"
-        android:textSize="13sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvAccuracyLabel" />
-
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/clPlayer1Accuracy"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:visibility="visible"
-        app:layout_constraintEnd_toStartOf="@+id/guideLine"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvAccuracyHelp">
-
-
-        <TextView
-            android:id="@+id/tvPlayer1Accuracy"
+            android:id="@+id/tvAccuracyLabel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/score_button_bg"
-            android:fontFamily="@font/poppins_bold"
-            android:gravity="center"
-            android:includeFontPadding="false"
-            android:text="@string/_4_0"
+            android:fontFamily="@font/poppins_medium"
+            android:text="@string/accuracy_start_4_0"
             android:textColor="@color/score_green"
-            android:textSize="32sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnPlayer1MinorError"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/score_button_bg"
-            android:backgroundTint="@color/score_green"
-            android:fontFamily="@font/poppins_bold"
-            android:includeFontPadding="false"
-            android:text="@string/_0_1"
-            android:textAllCaps="false"
-            android:textColor="@color/btn_text"
-            android:textSize="32sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvPlayer1Accuracy" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnPlayer1MajorError"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/score_button_bg"
-            android:backgroundTint="@color/score_green"
-            android:fontFamily="@font/poppins_bold"
-            android:includeFontPadding="false"
-            android:text="@string/_0_3"
-            android:textAllCaps="false"
-            android:textColor="@color/btn_text"
-            android:textSize="32sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnPlayer1MinorError" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/clPlayer1Presentation"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toStartOf="@+id/guideLine"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvAccuracyHelp">
-
-        <TextView
-            android:id="@+id/tvPlayer1PresentationLabel"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_regular"
-            android:text="@string/presentation_3_criteria_2_0"
-            android:textColor="@color/score_blue"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tvConnectHost"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/clRefereeDetails" />
 
         <TextView
-            android:id="@+id/tvPlayer1PresentationHelp"
+            android:id="@+id/tvConnectHost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_medium"
+            android:paddingHorizontal="20dp"
+            android:text="Connect Host Again"
+            android:textColor="@color/score_green"
+            android:textSize="16sp"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/clRefereeDetails" />
+
+        <TextView
+            android:id="@+id/tvAccuracyHelp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="4dp"
             android:fontFamily="@font/poppins_regular"
-            android:text="@string/tap_value_2_0_0_5_for_each_criterion"
+            android:text="@string/minor_0_1_major_0_3"
             android:textColor="@color/neutral_dark_4"
             android:textSize="13sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvPlayer1PresentationLabel" />
+            app:layout_constraintTop_toBottomOf="@id/tvAccuracyLabel" />
 
-        <!-- C1 -->
-        <TextView
-            android:id="@+id/tvC1Player1"
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clPlayer1Accuracy"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:fontFamily="@font/poppins_medium"
-            android:text="@string/_1_rhythm_amp_coordination"
-            android:textColor="@color/neutral_dark_4"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="10dp"
+            android:visibility="visible"
+            app:layout_constraintEnd_toStartOf="@+id/guideLine"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvPlayer1PresentationHelp" />
+            app:layout_constraintTop_toBottomOf="@+id/tvAccuracyHelp">
 
-        <HorizontalScrollView
-            android:id="@+id/hsC1Player1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:scrollbars="none"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvC1Player1">
-
-            <LinearLayout
-                android:id="@+id/Player1layoutC1"
-                android:layout_width="wrap_content"
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnPlayer1MinorError"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal" />
-        </HorizontalScrollView>
+                android:background="@drawable/score_button_bg"
+                android:backgroundTint="@color/error_500"
+                android:fontFamily="@font/poppins_bold"
+                android:includeFontPadding="false"
+                android:paddingVertical="20dp"
+                android:text="@string/_0_1"
+                android:textAllCaps="false"
+                android:textColor="@color/btn_text"
+                android:textSize="32sp"
+                app:layout_constraintEnd_toStartOf="@+id/tvPlayer1Accuracy"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- C2 -->
-        <TextView
-            android:id="@+id/Player1tvC2"
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnPlayer1MajorError"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/score_button_bg"
+                android:backgroundTint="@color/error_500"
+                android:fontFamily="@font/poppins_bold"
+                android:includeFontPadding="false"
+                android:paddingVertical="20dp"
+                android:text="@string/_0_3"
+                android:textAllCaps="false"
+                android:textColor="@color/btn_text"
+                android:textSize="32sp"
+                app:layout_constraintEnd_toEndOf="@+id/btnPlayer1MinorError"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnPlayer1MinorError" />
+
+            <TextView
+                android:id="@+id/tvPlayer1Accuracy"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/score_button_bg"
+                android:fontFamily="@font/poppins_bold"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:text="@string/_4_0"
+                android:textColor="@color/error_500"
+                android:textSize="56sp"
+                app:layout_constraintBottom_toBottomOf="@+id/btnPlayer1MajorError"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/btnPlayer1MinorError"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnPlayer1MinorAdd"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/score_button_bg"
+                android:fontFamily="@font/poppins_medium"
+                android:includeFontPadding="false"
+                android:text="+0.1"
+                android:textAllCaps="false"
+                android:textColor="@color/score_green"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/btnPlayer1MajorAdd"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvPlayer1Accuracy" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnPlayer1MajorAdd"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/score_button_bg"
+                android:fontFamily="@font/poppins_medium"
+                android:includeFontPadding="false"
+                android:text="+0.3"
+                android:textAllCaps="false"
+                android:textColor="@color/score_green"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/btnPlayer1MinorAdd"
+                app:layout_constraintTop_toTopOf="@+id/btnPlayer1MinorAdd" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clPlayer1Presentation"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:fontFamily="@font/poppins_medium"
-            android:text="@string/_2_technical_execution"
-            android:textColor="@color/neutral_dark_4"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="10dp"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toStartOf="@+id/guideLine"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/hsC1Player1" />
+            app:layout_constraintTop_toBottomOf="@+id/tvAccuracyHelp">
 
-        <HorizontalScrollView
-            android:id="@+id/Player1hsC2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:scrollbars="none"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/Player1tvC2">
-
-            <LinearLayout
-                android:id="@+id/Player1layoutC2"
-                android:layout_width="wrap_content"
+            <!-- C1 -->
+            <TextView
+                android:id="@+id/tvC1Player1"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal" />
-        </HorizontalScrollView>
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/_1_rhythm_amp_coordination"
+                android:textColor="@color/neutral_dark_4"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- C3 -->
-        <TextView
-            android:id="@+id/Player1tvC3"
+            <HorizontalScrollView
+                android:id="@+id/hsC1Player1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:scrollbars="none"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvC1Player1">
+
+                <LinearLayout
+                    android:id="@+id/Player1layoutC1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" />
+            </HorizontalScrollView>
+
+            <!-- C2 -->
+            <TextView
+                android:id="@+id/Player1tvC2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/_2_technical_execution"
+                android:textColor="@color/neutral_dark_4"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/hsC1Player1" />
+
+            <HorizontalScrollView
+                android:id="@+id/Player1hsC2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:scrollbars="none"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/Player1tvC2">
+
+                <LinearLayout
+                    android:id="@+id/Player1layoutC2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" />
+            </HorizontalScrollView>
+
+            <!-- C3 -->
+            <TextView
+                android:id="@+id/Player1tvC3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/_3_expression_of_energy"
+                android:textColor="@color/neutral_dark_4"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/Player1hsC2" />
+
+            <HorizontalScrollView
+                android:id="@+id/Player1hsC3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:scrollbars="none"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/Player1tvC3">
+
+                <LinearLayout
+                    android:id="@+id/Player1layoutC3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" />
+            </HorizontalScrollView>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/Player1hsC3">
+
+                <TextView
+                    android:id="@+id/tvPlayer1AccuracyBig"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/poppins_bold"
+                    android:gravity="center"
+                    android:text="@string/_4_0"
+                    android:textColor="@color/score_green"
+                    android:textSize="25sp"
+                    app:layout_constraintEnd_toStartOf="@id/tvPlayer1PresentationBig"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvPlayer1PresentationBig"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/poppins_bold"
+                    android:gravity="center"
+                    android:text="@string/_6_0"
+                    android:textColor="@color/score_blue"
+                    android:textSize="25sp"
+                    app:layout_constraintEnd_toStartOf="@id/tvPlayer1TotalBig"
+                    app:layout_constraintStart_toEndOf="@id/tvPlayer1AccuracyBig"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvPlayer1TotalBig"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/poppins_bold"
+                    android:gravity="center"
+                    android:text="@string/_10_000"
+                    android:textColor="@color/score_yellow"
+                    android:textSize="25sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tvPlayer1PresentationBig"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <!-- Labels under big scores -->
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:gravity="center"
+                    android:text="@string/accuracy"
+                    android:textColor="@color/score_green"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="@id/tvPlayer1AccuracyBig"
+                    app:layout_constraintStart_toStartOf="@id/tvPlayer1AccuracyBig"
+                    app:layout_constraintTop_toBottomOf="@id/tvPlayer1AccuracyBig" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:gravity="center"
+                    android:text="@string/presentation"
+                    android:textColor="@color/score_blue"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="@id/tvPlayer1PresentationBig"
+                    app:layout_constraintStart_toStartOf="@id/tvPlayer1PresentationBig"
+                    app:layout_constraintTop_toBottomOf="@id/tvPlayer1PresentationBig" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:gravity="center"
+                    android:text="@string/total"
+                    android:textColor="@color/score_yellow"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="@id/tvPlayer1TotalBig"
+                    app:layout_constraintStart_toStartOf="@id/tvPlayer1TotalBig"
+                    app:layout_constraintTop_toBottomOf="@id/tvPlayer1TotalBig" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clPlayer2Accuracy"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:fontFamily="@font/poppins_medium"
-            android:text="@string/_3_expression_of_energy"
-            android:textColor="@color/neutral_dark_4"
-            android:textSize="14sp"
+            android:layout_marginEnd="10dp"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/Player1hsC2" />
+            app:layout_constraintStart_toEndOf="@+id/guideLine"
+            app:layout_constraintTop_toBottomOf="@+id/tvAccuracyHelp">
 
-        <HorizontalScrollView
-            android:id="@+id/Player1hsC3"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:scrollbars="none"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/Player1tvC3">
-
-            <LinearLayout
-                android:id="@+id/Player1layoutC3"
-                android:layout_width="wrap_content"
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnPlayer2MinorError"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal" />
-        </HorizontalScrollView>
+                android:background="@drawable/score_button_bg"
+                android:backgroundTint="@color/highlight_500"
+                android:fontFamily="@font/poppins_bold"
+                android:includeFontPadding="false"
+                android:paddingVertical="20dp"
+                android:text="@string/_0_1"
+                android:textAllCaps="false"
+                android:textColor="@color/btn_text"
+                android:textSize="32sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tvPlayer2Accuracy"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnPlayer2MajorError"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/score_button_bg"
+                android:backgroundTint="@color/highlight_500"
+                android:fontFamily="@font/poppins_bold"
+                android:includeFontPadding="false"
+                android:paddingVertical="20dp"
+                android:text="@string/_0_3"
+                android:textAllCaps="false"
+                android:textColor="@color/btn_text"
+                android:textSize="32sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/btnPlayer2MinorError"
+                app:layout_constraintTop_toBottomOf="@+id/btnPlayer2MinorError" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/clPlayer2Accuracy"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:visibility="visible"
-        app:layout_constraintStart_toEndOf="@+id/guideLine"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvAccuracyHelp">
+            <TextView
+                android:id="@+id/tvPlayer2Accuracy"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginHorizontal="10dp"
+                android:background="@drawable/score_button_bg"
+                android:fontFamily="@font/poppins_bold"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:text="@string/_4_0"
+                android:textColor="@color/highlight_500"
+                android:textSize="56sp"
+                app:layout_constraintBottom_toBottomOf="@+id/btnPlayer2MajorError"
+                app:layout_constraintEnd_toStartOf="@+id/btnPlayer2MinorError"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnPlayer2MinorAdd"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/score_button_bg"
+                android:fontFamily="@font/poppins_medium"
+                android:includeFontPadding="false"
+                android:text="+0.1"
+                android:textAllCaps="false"
+                android:textColor="@color/score_green"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/btnPlayer2MajorAdd"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvPlayer2Accuracy" />
 
-        <TextView
-            android:id="@+id/tvPlayer2Accuracy"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/score_button_bg"
-            android:fontFamily="@font/poppins_bold"
-            android:gravity="center"
-            android:includeFontPadding="false"
-            android:text="@string/_4_0"
-            android:textColor="@color/score_green"
-            android:textSize="32sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnPlayer2MajorAdd"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/score_button_bg"
+                android:fontFamily="@font/poppins_medium"
+                android:includeFontPadding="false"
+                android:text="+0.3"
+                android:textAllCaps="false"
+                android:textColor="@color/score_green"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/btnPlayer2MinorAdd"
+                app:layout_constraintTop_toTopOf="@+id/btnPlayer2MinorAdd" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnPlayer2MinorError"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/score_button_bg"
-            android:backgroundTint="@color/score_green"
-            android:fontFamily="@font/poppins_bold"
-            android:includeFontPadding="false"
-            android:text="@string/_0_1"
-            android:textAllCaps="false"
-            android:textColor="@color/btn_text"
-            android:textSize="32sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvPlayer2Accuracy" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnPlayer2MajorError"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/score_button_bg"
-            android:backgroundTint="@color/score_green"
-            android:fontFamily="@font/poppins_bold"
-            android:includeFontPadding="false"
-            android:text="@string/_0_3"
-            android:textAllCaps="false"
-            android:textColor="@color/btn_text"
-            android:textSize="32sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnPlayer2MinorError" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/clPlayer2Presentation"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:visibility="invisible"
-        app:layout_constraintStart_toEndOf="@+id/guideLine"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvAccuracyHelp">
-
-
-        <TextView
-            android:id="@+id/tvPlayer2PresentationLabel"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:fontFamily="@font/poppins_regular"
-            android:text="@string/presentation_3_criteria_2_0"
-            android:textColor="@color/score_blue"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tvPlayer2PresentationHelp"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:fontFamily="@font/poppins_regular"
-            android:text="@string/tap_value_2_0_0_5_for_each_criterion"
-            android:textColor="@color/neutral_dark_4"
-            android:textSize="13sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvPlayer2PresentationLabel" />
-
-        <!-- C1 -->
-        <TextView
-            android:id="@+id/tvC1Player2"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clPlayer2Presentation"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:fontFamily="@font/poppins_medium"
-            android:text="@string/_1_rhythm_amp_coordination"
-            android:textColor="@color/neutral_dark_4"
-            android:textSize="14sp"
+            android:layout_marginEnd="10dp"
+            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvPlayer2PresentationHelp" />
+            app:layout_constraintStart_toEndOf="@+id/guideLine"
+            app:layout_constraintTop_toBottomOf="@+id/tvAccuracyHelp">
 
-        <HorizontalScrollView
-            android:id="@+id/Player2hsC1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:scrollbars="none"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvC1Player2">
-
-            <LinearLayout
-                android:id="@+id/Player2layoutC1"
-                android:layout_width="wrap_content"
+            <!-- C1 -->
+            <TextView
+                android:id="@+id/tvC1Player2"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal" />
-        </HorizontalScrollView>
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/_1_rhythm_amp_coordination"
+                android:textColor="@color/neutral_dark_4"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- C2 -->
-        <TextView
-            android:id="@+id/Player2tvC2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/poppins_medium"
-            android:text="@string/_2_technical_execution"
-            android:textColor="@color/neutral_dark_4"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/Player2hsC1" />
-
-        <HorizontalScrollView
-            android:id="@+id/Player2hsC2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:scrollbars="none"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/Player2tvC2">
-
-            <LinearLayout
-                android:id="@+id/Player2layoutC2"
-                android:layout_width="wrap_content"
+            <HorizontalScrollView
+                android:id="@+id/Player2hsC1"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal" />
-        </HorizontalScrollView>
+                android:layout_marginTop="4dp"
+                android:scrollbars="none"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvC1Player2">
 
-        <!-- C3 -->
-        <TextView
-            android:id="@+id/Player2tvC3"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/poppins_medium"
-            android:text="@string/_3_expression_of_energy"
-            android:textColor="@color/neutral_dark_4"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/Player2hsC2" />
+                <LinearLayout
+                    android:id="@+id/Player2layoutC1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" />
+            </HorizontalScrollView>
 
-        <HorizontalScrollView
-            android:id="@+id/Player2hsC3"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:scrollbars="none"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/Player2tvC3">
-
-            <LinearLayout
-                android:id="@+id/Player2layoutC3"
-                android:layout_width="wrap_content"
+            <!-- C2 -->
+            <TextView
+                android:id="@+id/Player2tvC2"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal" />
-        </HorizontalScrollView>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/_2_technical_execution"
+                android:textColor="@color/neutral_dark_4"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/Player2hsC1" />
 
+            <HorizontalScrollView
+                android:id="@+id/Player2hsC2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:scrollbars="none"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/Player2tvC2">
+
+                <LinearLayout
+                    android:id="@+id/Player2layoutC2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" />
+            </HorizontalScrollView>
+
+            <!-- C3 -->
+            <TextView
+                android:id="@+id/Player2tvC3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/_3_expression_of_energy"
+                android:textColor="@color/neutral_dark_4"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/Player2hsC2" />
+
+            <HorizontalScrollView
+                android:id="@+id/Player2hsC3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:scrollbars="none"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/Player2tvC3">
+
+                <LinearLayout
+                    android:id="@+id/Player2layoutC3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" />
+            </HorizontalScrollView>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/Player2hsC3">
+
+                <TextView
+                    android:id="@+id/tvPlayer2AccuracyBig"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/poppins_bold"
+                    android:gravity="center"
+                    android:text="@string/_4_0"
+                    android:textColor="@color/score_green"
+                    android:textSize="25sp"
+                    app:layout_constraintEnd_toStartOf="@id/tvPlayer2PresentationBig"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvPlayer2PresentationBig"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/poppins_bold"
+                    android:gravity="center"
+                    android:text="@string/_6_0"
+                    android:textColor="@color/score_blue"
+                    android:textSize="25sp"
+                    app:layout_constraintEnd_toStartOf="@id/tvPlayer2TotalBig"
+                    app:layout_constraintStart_toEndOf="@id/tvPlayer2AccuracyBig"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvPlayer2TotalBig"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/poppins_bold"
+                    android:gravity="center"
+                    android:text="@string/_10_000"
+                    android:textColor="@color/score_yellow"
+                    android:textSize="25sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tvPlayer2PresentationBig"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <!-- Labels under big scores -->
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:gravity="center"
+                    android:text="@string/accuracy"
+                    android:textColor="@color/score_green"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="@id/tvPlayer2AccuracyBig"
+                    app:layout_constraintStart_toStartOf="@id/tvPlayer2AccuracyBig"
+                    app:layout_constraintTop_toBottomOf="@id/tvPlayer2AccuracyBig" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:gravity="center"
+                    android:text="@string/presentation"
+                    android:textColor="@color/score_blue"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="@id/tvPlayer2PresentationBig"
+                    app:layout_constraintStart_toStartOf="@id/tvPlayer2PresentationBig"
+                    app:layout_constraintTop_toBottomOf="@id/tvPlayer2PresentationBig" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:gravity="center"
+                    android:text="@string/total"
+                    android:textColor="@color/score_yellow"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="@id/tvPlayer2TotalBig"
+                    app:layout_constraintStart_toStartOf="@id/tvPlayer2TotalBig"
+                    app:layout_constraintTop_toBottomOf="@id/tvPlayer2TotalBig" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnNext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/score_button_bg"
         android:backgroundTint="@color/sta_black"
         android:fontFamily="@font/poppins_medium"
@@ -538,6 +761,24 @@
         android:textColor="@color/btn_text"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnSubmitScore"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnSubmitScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/score_button_bg"
+        android:backgroundTint="@color/sta_black"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/submit_score"
+        android:textAllCaps="false"
+        android:textColor="@color/btn_text"
+        android:textSize="15sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnNext" />
 </androidx.constraintlayout.widget.ConstraintLayout>

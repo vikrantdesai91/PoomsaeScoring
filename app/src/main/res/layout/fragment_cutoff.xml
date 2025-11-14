@@ -515,7 +515,7 @@
         android:background="@drawable/score_button_bg"
         android:backgroundTint="@color/sta_green"
         android:fontFamily="@font/poppins_medium"
-        android:text="Submit Score"
+        android:text="@string/submit_score"
         android:textAllCaps="false"
         android:textColor="@color/btn_text"
         android:textSize="15sp"
