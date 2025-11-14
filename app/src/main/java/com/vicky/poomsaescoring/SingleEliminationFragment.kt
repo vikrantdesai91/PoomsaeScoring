@@ -8,9 +8,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.vicky.poomsaescoring.databinding.FragmentSingleEliminationBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import org.json.JSONObject
+import java.io.BufferedReader
+import java.io.BufferedWriter
+import java.io.InputStreamReader
+import java.io.OutputStreamWriter
+import java.net.InetSocketAddress
+import java.net.Socket
 import kotlin.math.roundToInt
 
 class SingleEliminationFragment : Fragment() {
@@ -39,6 +51,9 @@ class SingleEliminationFragment : Fragment() {
     private var player2MinorErrors = 0
     private var player1MajorErrors = 0
     private var player2MajorErrors = 0
+
+    var p1TotalScore: Double = 0.0
+    var p2TotalScore: Double = 0.0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -86,11 +101,112 @@ class SingleEliminationFragment : Fragment() {
             }
 
             btnSubmitScore.setOnClickListener {
-
+                submitScoreToHost()
             }
         }
 
     }
+
+    private fun submitScoreToHost() {
+        val refereeName = binding.etRefereeName.text?.toString()?.trim().orEmpty()
+        val hostIp = binding.etHostIp.text?.toString()?.trim().orEmpty()
+        val port = 5555
+
+        // Simple validation with TextInputLayout error support
+        var hasError = false
+
+        if (refereeName.isEmpty()) {
+            binding.tilName.error = "Referee name required"
+            hasError = true
+        } else {
+            binding.tilName.error = null
+        }
+
+        if (hostIp.isEmpty()) {
+            binding.tilIp.error = "Host IP required"
+            hasError = true
+        } else {
+            binding.tilIp.error = null
+        }
+
+        if (hasError) return
+
+        // Calculate Player 1 and Player 2 Total Scores
+        val p1PresentationTotal = p1C1Score + p1C2Score + p1C3Score
+        val p2PresentationTotal = p2C1Score + p2C2Score + p2C3Score
+
+        val p1Total = player1Accuracy + p1PresentationTotal
+        val p2Total = player2Accuracy + p2PresentationTotal
+
+        // Create the payload to send both players' scores to the host
+        val payload = JSONObject().apply {
+            put("refereeName", refereeName)
+            put("player1_accuracy", roundToThreeDecimals(player1Accuracy))
+            put("player1_presentation", roundToThreeDecimals(p1PresentationTotal))
+            put("player1_total", roundToThreeDecimals(p1Total))
+
+            put("player2_accuracy", roundToThreeDecimals(player2Accuracy))
+            put("player2_presentation", roundToThreeDecimals(p2PresentationTotal))
+            put("player2_total", roundToThreeDecimals(p2Total))
+        }.toString()
+
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                Socket().use { socket ->
+                    // Connect to the host
+                    socket.connect(InetSocketAddress(hostIp, port), 3000)
+
+                    // Send the payload to the host
+                    val writer = BufferedWriter(OutputStreamWriter(socket.getOutputStream()))
+                    writer.write(payload)
+                    writer.newLine()
+                    writer.flush()
+
+                    // Wait for ACK from the host
+                    socket.soTimeout = 3000
+                    val reader = BufferedReader(InputStreamReader(socket.getInputStream()))
+                    val response = reader.readLine()
+
+                    if (response == "OK") {
+                        withContext(Dispatchers.Main) {
+                            setConnectionStatus(connected = true, hostIp = hostIp)
+                            toast("Scores submitted successfully!")
+                        }
+                    } else {
+                        withContext(Dispatchers.Main) {
+                            setConnectionStatus(connected = false, hostIp = hostIp)
+                            toast("Submit failed: no ACK from host")
+                        }
+                    }
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    setConnectionStatus(connected = false, hostIp = hostIp)
+                    toast("Submit failed: ${e.localizedMessage ?: "connection error"}")
+                }
+            }
+        }
+    }
+
+
+    private fun setConnectionStatus(connected: Boolean, hostIp: String) {
+        // If you didn't add tvConnectionStatus, you can skip this safely
+        val tv = binding.tvConnectionStatus ?: return
+
+        if (connected) {
+            tv.text = "Connected to $hostIp"
+            tv.setTextColor(ContextCompat.getColor(this.requireContext(), R.color.score_green))
+            binding.clRefereeDetails.visibility = View.GONE
+            binding.tvConnectHost.visibility = View.VISIBLE
+        } else {
+            tv.text = "Not connected"
+            tv.setTextColor(ContextCompat.getColor(this.requireContext(), R.color.error_500))
+            binding.clRefereeDetails.visibility = View.VISIBLE
+            binding.tvConnectHost.visibility = View.GONE
+
+        }
+    }
+
 
     // Handle deduction buttons (for -0.1 and -0.3)
     private fun setupScoringButtons() {
@@ -268,8 +384,8 @@ class SingleEliminationFragment : Fragment() {
             tvPlayer1PresentationBig.text = formatScoreOneDecimal(p1Total)
             tvPlayer2PresentationBig.text = formatScoreOneDecimal(p2Total)
 
-            val p1TotalScore = roundToThreeDecimals(player1Accuracy + p1Total)
-            val p2TotalScore = roundToThreeDecimals(player2Accuracy + p2Total)
+            p1TotalScore = roundToThreeDecimals(player1Accuracy + p1Total)
+            p2TotalScore = roundToThreeDecimals(player2Accuracy + p2Total)
 
             tvPlayer1TotalBig.text = p1TotalScore.toString()
             tvPlayer2TotalBig.text = p2TotalScore.toString()
@@ -367,5 +483,7 @@ class SingleEliminationFragment : Fragment() {
     private fun formatScore(score: Double): String {
         return String.format("%.1f", score)
     }
-
+    private fun toast(msg: String) {
+        Toast.makeText(this.requireContext(), msg, Toast.LENGTH_SHORT).show()
+    }
 }
