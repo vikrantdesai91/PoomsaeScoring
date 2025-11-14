@@ -103,6 +103,10 @@ class SingleEliminationFragment : Fragment() {
             btnSubmitScore.setOnClickListener {
                 submitScoreToHost()
             }
+
+            tvConnectHost.setOnClickListener {
+                clRefereeDetails.visibility = View.VISIBLE
+            }
         }
 
     }
