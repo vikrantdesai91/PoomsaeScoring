@@ -37,9 +37,9 @@ class ScoringListFragment : Fragment() {
                 findNavController().navigate(R.id.singleEliminationFragment)
             }
 
-            cdFreeStyleSystem.setOnClickListener {
+            /*cdFreeStyleSystem.setOnClickListener {
                 findNavController().navigate(R.id.freeStyleFragment)
-            }
+            }*/
         }
     }
 

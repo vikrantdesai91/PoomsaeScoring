@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/neutral_bg_dark"
+    tools:context=".HostFragment">
+
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="0dp"
+        android:layout_height="?actionBarSize"
+        android:fontFamily="@font/poppins_bold"
+        android:gravity="center"
+        android:paddingHorizontal="15dp"
+        android:text="@string/poomsae_host_panel"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Host IP display -->
+    <TextView
+        android:id="@+id/tvHostIp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="6dp"
+        android:fontFamily="@font/poppins_regular"
+        android:text="@string/host_ip"
+        android:textColor="@color/score_blue"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
+    <!-- Judge Count Spinner (3, 5, 7) -->
+    <LinearLayout
+        android:id="@+id/controlsRow"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvHostIp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/poppins_regular"
+            android:includeFontPadding="false"
+            android:text="Judges:"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+        <Spinner
+            android:id="@+id/spJudgeCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tvReceivedOutOf"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="end"
+            android:includeFontPadding="false"
+            android:text="Received: 0 / 3"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/nameHeader"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/controlsRow">
+
+        <TextView
+            android:id="@+id/tvRefName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_regular"
+            android:text="Referee Name"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="@+id/tvPlayer1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvPlayer1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_regular"
+            android:paddingHorizontal="10dp"
+            android:text="Player 1"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="@+id/tvPlayer2"
+            app:layout_constraintStart_toEndOf="@+id/tvRefName"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvPlayer2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_regular"
+            android:paddingHorizontal="10dp"
+            android:text="Player 2"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tvPlayer1"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Referee list -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvScores"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="12dp"
+        tools:itemCount="5"
+        app:layout_constraintBottom_toTopOf="@id/tvAveragePlayer1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/nameHeader"
+        tools:listitem="@layout/item_referee_score" />
+
+    <!-- Average Score -->
+    <TextView
+        android:id="@+id/tvAveragePlayer1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/poppins_bold"
+        android:paddingHorizontal="10sp"
+        android:text="@string/average_score_n0_000"
+        android:textAlignment="center"
+        android:textColor="@color/score_yellow"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@id/btnResetHost"
+        app:layout_constraintEnd_toStartOf="@+id/tvAveragePlayer2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rvScores" />
+
+    <TextView
+        android:id="@+id/tvAveragePlayer2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/poppins_bold"
+        android:paddingHorizontal="10sp"
+        android:text="@string/average_score_n0_000"
+        android:textAlignment="center"
+        android:textColor="@color/score_yellow"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@id/btnResetHost"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvAveragePlayer1"
+        app:layout_constraintTop_toBottomOf="@id/rvScores" />
+
+    <!-- WT Final -->
+    <!--<TextView
+        android:id="@+id/tvWtFinal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="WT Final: 0.000"
+        android:textColor="@color/score_yellow"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/tvAverage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btnResetHost" />-->
+
+    <!-- Reset Scores Button -->
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnResetHost"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginHorizontal="10sp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/bg_reset"
+        android:fontFamily="@font/poppins_bold"
+        android:text="@string/reset_scores"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

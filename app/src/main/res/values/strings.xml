@@ -22,4 +22,9 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="submit_score">Submit Score</string>
+
+    <string name="poomsae_host_panel">Poomsae Host Panel</string>
+    <string name="host_ip">Host IP : -</string>
+    <string name="average_score_n0_000">Average Score\n0.000</string>
+    <string name="reset_scores">Reset Scores</string>
 </resources>

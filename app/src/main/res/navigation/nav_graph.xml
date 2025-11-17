@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/scoringListFragment">
+    app:startDestination="@id/selectionFragment">
 
     <fragment
         android:id="@+id/cutoffFragment"
@@ -35,4 +35,21 @@
         android:name="com.vicky.poomsaescoring.FreeStyleFragment"
         android:label="fragment_free_style"
         tools:layout="@layout/fragment_free_style" />
+    <fragment
+        android:id="@+id/selectionFragment"
+        android:name="com.vicky.poomsaescoring.SelectionFragment"
+        android:label="fragment_selection"
+        tools:layout="@layout/fragment_selection">
+        <action
+            android:id="@+id/action_selectionFragment_to_scoringListFragment"
+            app:destination="@id/scoringListFragment" />
+        <action
+            android:id="@+id/action_selectionFragment_to_hostFragment"
+            app:destination="@id/hostFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/hostFragment"
+        android:name="com.vicky.poomsaescoring.HostFragment"
+        android:label="fragment_host"
+        tools:layout="@layout/fragment_host" />
 </navigation>

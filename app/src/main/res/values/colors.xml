@@ -69,5 +69,14 @@
     <color name="button_border">@color/neutral_light_2</color>    <!-- subtle border -->
     <color name="button_ripple">@color/highlight_100</color>      <!-- light blue ripple -->
 
+    <color name="neutral_bg_dark">#1F2024</color>
+    <color name="neutral_bg_light">#F8F9FE</color>
+    <color name="text_primary_light">#1F2024</color>
+    <color name="text_primary_dark">#FFFFFF</color>
+
+    <color name="item_bg">#121212</color>
+    <color name="item_border">#333333</color>
+    <color name="red">#FF0000</color>
+
 
 </resources>

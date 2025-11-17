@@ -59,5 +59,9 @@
     <color name="button_border">@color/neutral_dark_3</color>     <!-- slightly lighter border -->
     <color name="button_ripple">@color/highlight_300</color>      <!-- soft blue ripple -->
 
+    <color name="neutral_bg_dark">#1F2024</color>
+    <color name="neutral_bg_light">#F8F9FE</color>
+    <color name="text_primary_light">#1F2024</color>
+    <color name="text_primary_dark">#FFFFFF</color>
 
 </resources>
