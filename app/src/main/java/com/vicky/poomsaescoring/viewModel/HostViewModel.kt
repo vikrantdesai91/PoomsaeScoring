@@ -1,8 +1,9 @@
-package com.vicky.poomsaescoring
+package com.vicky.poomsaescoring.viewModel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.vicky.poomsaescoring.data.RefereeScore
 import kotlin.math.roundToInt
 
 class HostViewModel : ViewModel() {

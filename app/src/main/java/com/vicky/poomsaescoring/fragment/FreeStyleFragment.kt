@@ -1,4 +1,4 @@
-package com.vicky.poomsaescoring
+package com.vicky.poomsaescoring.fragment
 
 import android.os.Bundle
 import android.text.Editable
@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.vicky.poomsaescoring.data.FreestyleCriterion
+import com.vicky.poomsaescoring.adapter.FreestyleCriterionAdapter
 import com.vicky.poomsaescoring.databinding.FragmentFreeStyleBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

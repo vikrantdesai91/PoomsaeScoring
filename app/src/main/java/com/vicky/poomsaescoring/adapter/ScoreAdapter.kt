@@ -1,4 +1,4 @@
-package com.vicky.poomsaescoring
+package com.vicky.poomsaescoring.adapter
 
 import android.content.Context
 import android.view.Gravity
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.LinearLayout
+import com.vicky.poomsaescoring.R
 
 class ScoreAdapter(
     private val context: Context,

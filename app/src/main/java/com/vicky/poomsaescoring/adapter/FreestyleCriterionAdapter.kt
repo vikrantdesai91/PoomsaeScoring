@@ -1,9 +1,10 @@
-package com.vicky.poomsaescoring
+package com.vicky.poomsaescoring.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.SeekBar
 import androidx.recyclerview.widget.RecyclerView
+import com.vicky.poomsaescoring.data.FreestyleCriterion
 import com.vicky.poomsaescoring.databinding.ItemFreestyleCriterionBinding
 
 class FreestyleCriterionAdapter(

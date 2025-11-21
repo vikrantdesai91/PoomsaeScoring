@@ -1,8 +1,9 @@
-package com.vicky.poomsaescoring
+package com.vicky.poomsaescoring.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.vicky.poomsaescoring.data.RefereeScore
 import com.vicky.poomsaescoring.databinding.ItemRefereeScoreBinding
 
 class RefereeScoreAdapter : RecyclerView.Adapter<RefereeScoreAdapter.VH>() {

@@ -1,4 +1,4 @@
-package com.vicky.poomsaescoring
+package com.vicky.poomsaescoring.data
 
 data class RefereeScore(
     val name: String,

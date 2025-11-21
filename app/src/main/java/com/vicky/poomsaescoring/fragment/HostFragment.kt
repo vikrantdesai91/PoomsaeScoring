@@ -1,5 +1,6 @@
-package com.vicky.poomsaescoring
+package com.vicky.poomsaescoring.fragment
 
+import android.R
 import android.content.Context
 import android.net.wifi.WifiManager
 import android.os.Bundle
@@ -13,6 +14,9 @@ import android.widget.Spinner
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.vicky.poomsaescoring.viewModel.HostViewModel
+import com.vicky.poomsaescoring.adapter.RefereeScoreAdapter
+import com.vicky.poomsaescoring.data.ScoreServer
 import com.vicky.poomsaescoring.databinding.FragmentHostBinding
 
 
@@ -51,7 +55,7 @@ class HostFragment : Fragment() {
         val judgeOptions = listOf(3, 5, 7)
         b.spJudgeCount.adapter = ArrayAdapter(
             requireContext(),
-            android.R.layout.simple_spinner_dropdown_item,
+            R.layout.simple_spinner_dropdown_item,
             judgeOptions
         )
         b.spJudgeCount.setSelection(0)

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/bg_dark"
     android:paddingHorizontal="10dp"
-    tools:context=".SingleEliminationFragment">
+    tools:context=".fragment.SingleEliminationFragment">
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollView"

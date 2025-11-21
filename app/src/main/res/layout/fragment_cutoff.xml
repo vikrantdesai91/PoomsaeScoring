@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/bg_dark"
     android:fitsSystemWindows="true"
-    tools:context=".CutoffFragment">
+    tools:context=".fragment.CutoffFragment">
 
     <!-- Content -->
     <androidx.core.widget.NestedScrollView

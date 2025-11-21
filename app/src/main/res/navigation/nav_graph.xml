@@ -7,12 +7,12 @@
 
     <fragment
         android:id="@+id/cutoffFragment"
-        android:name="com.vicky.poomsaescoring.CutoffFragment"
+        android:name="com.vicky.poomsaescoring.fragment.CutoffFragment"
         android:label="fragment_cutoff"
         tools:layout="@layout/fragment_cutoff" />
     <fragment
         android:id="@+id/scoringListFragment"
-        android:name="com.vicky.poomsaescoring.ScoringListFragment"
+        android:name="com.vicky.poomsaescoring.fragment.ScoringListFragment"
         android:label="fragment_scoring_list"
         tools:layout="@layout/fragment_scoring_list">
         <action
@@ -27,17 +27,17 @@
     </fragment>
     <fragment
         android:id="@+id/singleEliminationFragment"
-        android:name="com.vicky.poomsaescoring.SingleEliminationFragment"
+        android:name="com.vicky.poomsaescoring.fragment.SingleEliminationFragment"
         android:label="fragment_single_elimination"
         tools:layout="@layout/fragment_single_elimination" />
     <fragment
         android:id="@+id/freeStyleFragment"
-        android:name="com.vicky.poomsaescoring.FreeStyleFragment"
+        android:name="com.vicky.poomsaescoring.fragment.FreeStyleFragment"
         android:label="fragment_free_style"
         tools:layout="@layout/fragment_free_style" />
     <fragment
         android:id="@+id/selectionFragment"
-        android:name="com.vicky.poomsaescoring.SelectionFragment"
+        android:name="com.vicky.poomsaescoring.fragment.SelectionFragment"
         android:label="fragment_selection"
         tools:layout="@layout/fragment_selection">
         <action
@@ -49,7 +49,7 @@
     </fragment>
     <fragment
         android:id="@+id/hostFragment"
-        android:name="com.vicky.poomsaescoring.HostFragment"
+        android:name="com.vicky.poomsaescoring.fragment.HostFragment"
         android:label="fragment_host"
         tools:layout="@layout/fragment_host" />
 </navigation>

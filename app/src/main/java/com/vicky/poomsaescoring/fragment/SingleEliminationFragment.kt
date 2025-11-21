@@ -1,4 +1,4 @@
-package com.vicky.poomsaescoring
+package com.vicky.poomsaescoring.fragment
 
 import android.content.res.ColorStateList
 import android.os.Bundle
@@ -8,10 +8,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.vicky.poomsaescoring.R
 import com.vicky.poomsaescoring.databinding.FragmentSingleEliminationBinding
+import com.vicky.poomsaescoring.formatScore
+import com.vicky.poomsaescoring.formatScoreThreeDecimals
+import com.vicky.poomsaescoring.normalizeOneDecimal
+import com.vicky.poomsaescoring.roundToThreeDecimals
+import com.vicky.poomsaescoring.toast
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -173,7 +178,7 @@ class SingleEliminationFragment : Fragment() {
                     if (response == "OK") {
                         withContext(Dispatchers.Main) {
                             setConnectionStatus(connected = true, hostIp = hostIp)
-                            toast(requireContext(),"Scores submitted successfully!")
+                            toast(requireContext(), "Scores submitted successfully!")
                             resetScores()
                             binding.clPlayer2Presentation.visibility = View.GONE
                             binding.clPlayer1Presentation.visibility = View.GONE
@@ -188,14 +193,14 @@ class SingleEliminationFragment : Fragment() {
                     } else {
                         withContext(Dispatchers.Main) {
                             setConnectionStatus(connected = false, hostIp = hostIp)
-                            toast(requireContext(),"Submit failed: no ACK from host")
+                            toast(requireContext(), "Submit failed: no ACK from host")
                         }
                     }
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
                     setConnectionStatus(connected = false, hostIp = hostIp)
-                    toast(requireContext(),"Submit failed: ${e.localizedMessage ?: "connection error"}")
+                    toast(requireContext(), "Submit failed: ${e.localizedMessage ?: "connection error"}")
                 }
             }
         }

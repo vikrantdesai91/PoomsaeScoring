@@ -1,4 +1,4 @@
-package com.vicky.poomsaescoring
+package com.vicky.poomsaescoring.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.vicky.poomsaescoring.R
 import com.vicky.poomsaescoring.databinding.FragmentSelectionBinding
 
 class SelectionFragment : Fragment() {
