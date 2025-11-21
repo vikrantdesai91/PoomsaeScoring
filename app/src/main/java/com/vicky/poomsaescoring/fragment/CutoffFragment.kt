@@ -1,5 +1,6 @@
 package com.vicky.poomsaescoring.fragment
 
+import android.content.pm.ActivityInfo
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.Gravity
@@ -58,6 +59,7 @@ class CutoffFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentCutoffBinding.inflate(inflater, container, false)
         return b.root
+        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -362,6 +364,18 @@ class CutoffFragment : Fragment() {
 
         }
     }
+    override fun onResume() {
+        super.onResume()
+        requireActivity().requestedOrientation =
+            ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+    }
+
+    override fun onPause() {
+        super.onPause()
+        requireActivity().requestedOrientation =
+            ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+    }
+
 
     private fun dpToPx(dp: Int): Int {
         val density = resources.displayMetrics.density

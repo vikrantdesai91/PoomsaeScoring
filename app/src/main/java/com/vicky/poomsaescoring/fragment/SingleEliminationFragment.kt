@@ -1,5 +1,6 @@
 package com.vicky.poomsaescoring.fragment
 
+import android.content.pm.ActivityInfo
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.Gravity
@@ -66,6 +67,7 @@ class SingleEliminationFragment : Fragment() {
     ): View? {
         _binding = FragmentSingleEliminationBinding.inflate(inflater, container, false)
         return binding.root
+        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -617,6 +619,18 @@ class SingleEliminationFragment : Fragment() {
             tvPlayer2Accuracy.text = formatScore(player2Accuracy)
             tvPlayer2AccuracyBig.text = formatScore(player2Accuracy)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        requireActivity().requestedOrientation =
+            ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+    }
+
+    override fun onPause() {
+        super.onPause()
+        requireActivity().requestedOrientation =
+            ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
     }
 
 }

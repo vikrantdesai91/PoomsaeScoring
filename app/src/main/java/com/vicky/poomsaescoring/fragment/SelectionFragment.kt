@@ -28,18 +28,6 @@ class SelectionFragment : Fragment() {
         viewListener()
     }
 
-    /*private fun viewListener() {
-        b.apply {
-            cdRefereeSystem.setOnClickListener {
-                findNavController().navigate(R.id.scoringListFragment)
-            }
-
-            cdHostSystem.setOnClickListener {
-                findNavController().navigate(R.id.hostFragment)
-            }
-        }
-    }*/
-
     private fun viewListener() {
         b.apply {
             cdRefereeSystem.setOnClickListener {

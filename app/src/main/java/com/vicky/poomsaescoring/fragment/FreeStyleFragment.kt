@@ -1,5 +1,6 @@
 package com.vicky.poomsaescoring.fragment
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -9,8 +10,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.vicky.poomsaescoring.data.FreestyleCriterion
 import com.vicky.poomsaescoring.adapter.FreestyleCriterionAdapter
+import com.vicky.poomsaescoring.data.FreestyleCriterion
 import com.vicky.poomsaescoring.databinding.FragmentFreeStyleBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -52,6 +53,8 @@ class FreeStyleFragment : Fragment() {
     ): View {
         _binding = FragmentFreeStyleBinding.inflate(inflater, container, false)
         return b.root
+        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -270,6 +273,17 @@ class FreeStyleFragment : Fragment() {
                 }
             }
         }
+    }
+    override fun onResume() {
+        super.onResume()
+        requireActivity().requestedOrientation =
+            ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+    }
+
+    override fun onPause() {
+        super.onPause()
+        requireActivity().requestedOrientation =
+            ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
     }
 
     override fun onDestroyView() {
