@@ -26,6 +26,7 @@ class HostFragment : Fragment() {
     private val adapter = RefereeScoreAdapter()
 
     private var expectedJudges = 3
+    private var serverStarted = false   // << Prevent double start
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,7 +47,7 @@ class HostFragment : Fragment() {
         b.rvScores.layoutManager = LinearLayoutManager(requireContext())
         b.rvScores.adapter = adapter
 
-        // Spinner: Judge count (3, 5, 7)
+        // Spinner setup
         val judgeOptions = listOf(3, 5, 7)
         b.spJudgeCount.adapter = ArrayAdapter(
             requireContext(),
@@ -59,44 +60,59 @@ class HostFragment : Fragment() {
             renderMetrics()
         }
 
-        // Host IP
+        // Show host IP
         val ip = getLocalIp()
         b.tvHostIp.text = "Host IP: $ip:5555"
 
-        // Start the server (only for this fragment instance)
-        server = ScoreServer(vm).also { it.start() }
+        // START SERVER ONLY ONCE
+        if (!serverStarted) {
+            serverStarted = true
+            server = ScoreServer(vm).also {
+                try {
+                    it.start()   // safe start
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+        }
 
-        // IMPORTANT: observe with viewLifecycleOwner, not requireActivity()
+        // Observe scores
         vm.scores.observe(viewLifecycleOwner) { list ->
             adapter.submitList(list)
             renderMetrics()
         }
 
+        // Reset button
         b.btnResetHost.setOnClickListener {
             vm.resetScores()
         }
     }
 
     override fun onDestroyView() {
-        // Stop server safely when view is destroyed (e.g. rotation, navigate away)
-        server?.stop()
-        server = null
-
-        _binding = null
         super.onDestroyView()
+
+        // Stop server SAFELY
+        try {
+            server?.stop()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+        server = null
+        serverStarted = false  // allow restarting when re-entering fragment
+        _binding = null
     }
 
     private fun renderMetrics() {
         val m = vm.computeWtMetrics(expectedJudges)
 
-        val player1Avg = vm.player1Average()
-        val player2Avg = vm.player2Average()
+        val p1 = vm.player1Average()
+        val p2 = vm.player2Average()
 
-        b.tvAveragePlayer1.text = String.format("Player 1 Average: %.3f", player1Avg)
-        b.tvAveragePlayer2.text = String.format("Player 2 Average: %.3f", player2Avg)
+        b.tvAveragePlayer1.text = String.format("Player 1 Average: %.3f", p1)
+        b.tvAveragePlayer2.text = String.format("Player 2 Average: %.3f", p2)
 
         b.tvReceivedOutOf.text = "Received: ${m.received} / ${m.expected}"
-        // b.tvAverage.text = String.format("Average Score: %.3f", m.wtFinal)
     }
 
     private fun getLocalIp(): String {

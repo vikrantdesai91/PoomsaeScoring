@@ -287,19 +287,19 @@ class CutoffFragment : Fragment() {
                     if (response == "OK") {
                         withContext(Dispatchers.Main) {
                             setConnectionStatus(connected = true, hostIp = hostIp)
-                            toast("Score submitted")
+                            toast(requireContext(),"Score submitted")
                         }
                     } else {
                         withContext(Dispatchers.Main) {
                             setConnectionStatus(connected = false, hostIp = hostIp)
-                            toast("Submit failed: no ACK from host")
+                            toast(requireContext(),"Submit failed: no ACK from host")
                         }
                     }
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
                     setConnectionStatus(connected = false, hostIp = hostIp)
-                    toast("Submit failed: ${e.localizedMessage ?: "connection error"}")
+                    toast(requireContext(),"Submit failed: ${e.localizedMessage ?: "connection error"}")
                 }
             }
         }
@@ -341,25 +341,6 @@ class CutoffFragment : Fragment() {
         updateAllScores()
     }
 
-    // ---------------- Helpers ----------------
-
-    private fun formatScore(value: Double): String {
-        return String.format("%.1f", normalizeOneDecimal(value))
-    }
-
-    private fun formatScoreThreeDecimals(value: Double): String {
-        val rounded = roundToThreeDecimals(value)
-        return String.format("%.3f", rounded)
-    }
-
-    private fun roundToThreeDecimals(value: Double): Double {
-        return (value * 1000.0).roundToInt() / 1000.0
-    }
-
-    private fun normalizeOneDecimal(value: Double): Double {
-        return (value * 10.0).roundToInt() / 10.0
-    }
-
     private fun setConnectionStatus(connected: Boolean, hostIp: String) {
         // If you didn't add tvConnectionStatus, you can skip this safely
         val tv = b.tvConnectionStatus ?: return
@@ -381,9 +362,5 @@ class CutoffFragment : Fragment() {
     private fun dpToPx(dp: Int): Int {
         val density = resources.displayMetrics.density
         return (dp * density).roundToInt()
-    }
-
-    private fun toast(msg: String) {
-        Toast.makeText(this.requireContext(), msg, Toast.LENGTH_SHORT).show()
     }
 }

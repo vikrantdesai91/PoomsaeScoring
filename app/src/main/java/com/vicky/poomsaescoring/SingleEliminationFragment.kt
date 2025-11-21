@@ -173,7 +173,7 @@ class SingleEliminationFragment : Fragment() {
                     if (response == "OK") {
                         withContext(Dispatchers.Main) {
                             setConnectionStatus(connected = true, hostIp = hostIp)
-                            toast("Scores submitted successfully!")
+                            toast(requireContext(),"Scores submitted successfully!")
                             resetScores()
                             binding.clPlayer2Presentation.visibility = View.GONE
                             binding.clPlayer1Presentation.visibility = View.GONE
@@ -188,14 +188,14 @@ class SingleEliminationFragment : Fragment() {
                     } else {
                         withContext(Dispatchers.Main) {
                             setConnectionStatus(connected = false, hostIp = hostIp)
-                            toast("Submit failed: no ACK from host")
+                            toast(requireContext(),"Submit failed: no ACK from host")
                         }
                     }
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
                     setConnectionStatus(connected = false, hostIp = hostIp)
-                    toast("Submit failed: ${e.localizedMessage ?: "connection error"}")
+                    toast(requireContext(),"Submit failed: ${e.localizedMessage ?: "connection error"}")
                 }
             }
         }
@@ -312,7 +312,7 @@ class SingleEliminationFragment : Fragment() {
             .toList()
 
         // ---------- PLAYER 1 ----------
-        createCategoryRow(
+        createCategoryRowRed(
             container = binding.Player1layoutC1,
             buttonsStore = p1CategoryButtons[0],
             values = values
@@ -321,7 +321,7 @@ class SingleEliminationFragment : Fragment() {
             updatePresentationTotals()
         }
 
-        createCategoryRow(
+        createCategoryRowRed(
             container = binding.Player1layoutC2,
             buttonsStore = p1CategoryButtons[1],
             values = values
@@ -330,7 +330,7 @@ class SingleEliminationFragment : Fragment() {
             updatePresentationTotals()
         }
 
-        createCategoryRow(
+        createCategoryRowRed(
             container = binding.Player1layoutC3,
             buttonsStore = p1CategoryButtons[2],
             values = values
@@ -340,7 +340,7 @@ class SingleEliminationFragment : Fragment() {
         }
 
         // ---------- PLAYER 2 ----------
-        createCategoryRow(
+        createCategoryRowBlue(
             container = binding.Player2layoutC1,
             buttonsStore = p2CategoryButtons[0],
             values = values
@@ -349,7 +349,7 @@ class SingleEliminationFragment : Fragment() {
             updatePresentationTotals()
         }
 
-        createCategoryRow(
+        createCategoryRowBlue(
             container = binding.Player2layoutC2,
             buttonsStore = p2CategoryButtons[1],
             values = values
@@ -358,7 +358,7 @@ class SingleEliminationFragment : Fragment() {
             updatePresentationTotals()
         }
 
-        createCategoryRow(
+        createCategoryRowBlue(
             container = binding.Player2layoutC3,
             buttonsStore = p2CategoryButtons[2],
             values = values
@@ -368,7 +368,7 @@ class SingleEliminationFragment : Fragment() {
         }
     }
 
-    private fun createCategoryRow(
+    private fun createCategoryRowBlue(
         container: LinearLayout,
         buttonsStore: MutableList<Button>,
         values: List<Double>,
@@ -389,14 +389,14 @@ class SingleEliminationFragment : Fragment() {
                 }
 
                 // Set the button text (formatted to one decimal point)
-                text = formatScoreOneDecimal(v)
+                text = formatScore(v)
                 textSize = 16f
                 setTextColor(resources.getColor(R.color.neutral_dark_4, requireContext().theme))
                 background = ContextCompat.getDrawable(requireContext(), R.drawable.score_button_bg)
 
                 setOnClickListener {
                     onValueSelected(v)
-                    markSelected(buttonsStore, this)  // Mark the button as selected
+                    markSelectedBlue(buttonsStore, this)  // Mark the button as selected
                 }
             }
 
@@ -407,12 +407,55 @@ class SingleEliminationFragment : Fragment() {
 
         // After all buttons are created, select the first one by default
         if (buttonsStore.isNotEmpty()) {
-            markSelected(buttonsStore, buttonsStore.first()) // Select the first button by default
+            markSelectedBlue(buttonsStore, buttonsStore.first()) // Select the first button by default
+        }
+    }
+
+    private fun createCategoryRowRed(
+        container: LinearLayout,
+        buttonsStore: MutableList<Button>,
+        values: List<Double>,
+        onValueSelected: (Double) -> Unit
+    ) {
+        container.removeAllViews()  // Clear the container before adding buttons
+        buttonsStore.clear()         // Clear the store for this category
+
+        // Create a button for each value in the category
+        for (v in values) {
+            val btn = Button(requireContext()).apply {
+                layoutParams = LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    dpToPx(40)
+                ).apply {
+                    rightMargin = dpToPx(4)
+                    gravity = Gravity.CENTER_VERTICAL
+                }
+
+                // Set the button text (formatted to one decimal point)
+                text = formatScore(v)
+                textSize = 16f
+                setTextColor(resources.getColor(R.color.neutral_dark_4, requireContext().theme))
+                background = ContextCompat.getDrawable(requireContext(), R.drawable.score_button_bg)
+
+                setOnClickListener {
+                    onValueSelected(v)
+                    markSelectedRed(buttonsStore, this)  // Mark the button as selected
+                }
+            }
+
+            // Add the button to the container and store it for future reference
+            container.addView(btn)
+            buttonsStore.add(btn)
+        }
+
+        // After all buttons are created, select the first one by default
+        if (buttonsStore.isNotEmpty()) {
+            markSelectedRed(buttonsStore, buttonsStore.first()) // Select the first button by default
         }
     }
 
 
-    private fun markSelected(buttonsStore: MutableList<Button>, selected: Button) {
+    private fun markSelectedBlue(buttonsStore: MutableList<Button>, selected: Button) {
         buttonsStore.forEach { btn ->
             val isSelected = btn == selected
             btn.isSelected = isSelected
@@ -436,16 +479,27 @@ class SingleEliminationFragment : Fragment() {
     }
 
 
-    private fun normalizeOneDecimal(value: Double): Double {
-        return (value * 10.0).roundToInt() / 10.0
-    }
+    private fun markSelectedRed(buttonsStore: MutableList<Button>, selected: Button) {
+        buttonsStore.forEach { btn ->
+            val isSelected = btn == selected
+            btn.isSelected = isSelected
 
-    private fun formatScoreOneDecimal(value: Double): String {
-        return String.format("%.1f", value)
-    }
+            // Change the background color of the selected button
+            btn.backgroundTintList = ColorStateList.valueOf(
+                resources.getColor(
+                    if (isSelected) R.color.error_300 else R.color.neutral_light_2,  // Highlight selected
+                    requireContext().theme
+                )
+            )
 
-    private fun roundToThreeDecimals(value: Double): Double {
-        return (value * 1000.0).roundToInt() / 1000.0
+            // Change the text color of the selected button
+            btn.setTextColor(
+                resources.getColor(
+                    if (isSelected) R.color.white_black else R.color.neutral_dark_4,  // Change text color for selected
+                    requireContext().theme
+                )
+            )
+        }
     }
 
     private fun dpToPx(dp: Int): Int {
@@ -462,14 +516,14 @@ class SingleEliminationFragment : Fragment() {
         val p2Total = p2C1Score + p2C2Score + p2C3Score
 
         binding.apply {
-            tvPlayer1PresentationBig.text = formatScoreOneDecimal(p1Total)
-            tvPlayer2PresentationBig.text = formatScoreOneDecimal(p2Total)
+            tvPlayer1PresentationBig.text = formatScore(p1Total)
+            tvPlayer2PresentationBig.text = formatScore(p2Total)
 
-            p1TotalScore = roundToThreeDecimals(player1Accuracy + p1Total)
-            p2TotalScore = roundToThreeDecimals(player2Accuracy + p2Total)
+            p1TotalScore = player1Accuracy + p1Total
+            p2TotalScore = player2Accuracy + p2Total
 
-            tvPlayer1TotalBig.text = p1TotalScore.toString()
-            tvPlayer2TotalBig.text = p2TotalScore.toString()
+            tvPlayer1TotalBig.text = formatScoreThreeDecimals(p1TotalScore)
+            tvPlayer2TotalBig.text = formatScoreThreeDecimals(p2TotalScore)
         }
     }
 
@@ -560,11 +614,4 @@ class SingleEliminationFragment : Fragment() {
         }
     }
 
-    // Format score to show with one decimal place
-    private fun formatScore(score: Double): String {
-        return String.format("%.1f", score)
-    }
-    private fun toast(msg: String) {
-        Toast.makeText(this.requireContext(), msg, Toast.LENGTH_SHORT).show()
-    }
 }
